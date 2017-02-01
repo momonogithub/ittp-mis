@@ -56,9 +56,6 @@ export const combineData = (channel, wayCodes, date) => {
         group[index]['Application'] += subChannel.Application
         group[index]['Approved'] += subChannel.Approved
       }
-      if(count === 11) {
-        console.log(group)
-      }
     }
     for(let item in group) {
       percent = group[item].Application === 0 ? 
