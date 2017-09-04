@@ -1,6 +1,9 @@
 import Head from 'next/head'
-import Month from './Month'
-import Gender from './Gender'
+import DemoRow from './DemoRow'
+import { monthToMonth } from '../../utilize'
+
+const date = monthToMonth(2017,8)
+const gender = ['Female', 'Male']
 
 const DemoContent = () => (
   <table>
@@ -22,8 +25,8 @@ const DemoContent = () => (
         <th>NPL rate</th>
       </tr>
     </tbody>
-    <Month/>
-    <Gender/>
+    <DemoRow rowHead={'Month'} option={date}/>
+    <DemoRow rowHead={'Gender'} option={gender}/>
   </table>
 )
 
