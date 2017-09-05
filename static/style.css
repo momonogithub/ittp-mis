@@ -165,6 +165,7 @@ th {
   border:1pt solid black;
   padding: 5px;
 }
-tbody.hidden {
+
+.hidden {
   display: none;
 }

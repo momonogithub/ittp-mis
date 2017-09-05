@@ -6,7 +6,7 @@ const NetflowBar = () => (
     <Head><link href='/static/style.css' rel='stylesheet'/></Head>
     <div className='barContentList'>
       <div className='barContent'>
-        <DateBar/>
+        <DateBar year={true} month={false}/>
       </div>
       <div className='barContent'>
         <button className='submitButton'>Submit</button>

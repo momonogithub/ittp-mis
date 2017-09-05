@@ -1,4 +1,9 @@
 import Head from 'next/head'
+
+const column = [
+
+]
+
 const PortSummary = () => (
   <table>
     <Head><link href='/static/style.css' rel='stylesheet'/></Head>

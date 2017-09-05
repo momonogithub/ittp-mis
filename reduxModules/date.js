@@ -8,12 +8,12 @@ const initialState = {
 
 export const setMonth = month => ({
   type: SET_MONTH,
-  payload: month,
+  payload: month.target.value,
 })
 
 export const setYear = year => ({
   type: SET_YEAR,
-  payload: year,
+  payload: year.target.value,
 })
 
 const dateReducer = (state = initialState, action) => {

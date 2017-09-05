@@ -4,8 +4,8 @@ import Head from 'next/head'
 const Sidebar = ({ pathname }) => (
   <div className='sidebar'>
     <Head><link href='/static/style.css' rel='stylesheet'/></Head>
-    <Link href="/index">
-      <div className={pathname==='/index'? 'sideItem is-active': 'sideItem' }>Portfolio</div>
+    <Link href="/">
+      <div className={pathname==='/'? 'sideItem is-active': 'sideItem' }>Portfolio</div>
     </Link>
     <Link href="/channel">
       <div className={pathname==='/channel'? 'sideItem is-active': 'sideItem' }>Channel</div>

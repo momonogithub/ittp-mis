@@ -1,5 +1,8 @@
 import Wrapper from '../components/Wrapper'
 import { store } from '../store'
+import { bindActionCreators } from 'redux'
+import { setMonth, setYear } from '../reduxModules/date'
+import withRedux from 'next-redux-wrapper'
 import ChannelContent from '../components/Channel/ChannelContent'
 import ChannelBar from '../components/Channel/ChannelBar'
 
@@ -12,4 +15,11 @@ const Channel = (props) => (
   />
 )
 
-export default Channel
+const mapDispatchToProps = (dispatch) => {
+  return {
+    setMonth: bindActionCreators(setMonth, dispatch),
+    setYear: bindActionCreators(setYear, dispatch)
+  }
+}
+
+export default withRedux(store, null, mapDispatchToProps)(Channel)
