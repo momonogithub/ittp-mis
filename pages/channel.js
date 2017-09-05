@@ -1,7 +1,7 @@
 import Wrapper from '../components/Wrapper'
 import { store } from '../store'
-import ChannelContent from '../components/ChannelContent'
-import ChannelBar from '../components/ChannelBar'
+import ChannelContent from '../components/Channel/ChannelContent'
+import ChannelBar from '../components/Channel/ChannelBar'
 
 const Channel = (props) => (
   <Wrapper 

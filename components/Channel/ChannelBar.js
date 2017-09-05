@@ -1,14 +1,14 @@
-import DateBar from '../DateBar'
 import Head from 'next/head'
+import DateBar from '../DateBar'
 import { buildCheckbox } from '../../utilize'
 
-const byApplication = [
-  '13 month', 'Gender', 'Loan size', 'Monthly Income', 'Age', 'Region',
-  'Marital status', 'Channel', 'Education', 'Bussniess type', 'Occupation',
-  'Working status'
+const byBranch = [
+  'HQ',
+  'LAD',
+  'AMATA'
 ]
 
-const DemographicBar = () => (
+const ChannelBar = () => (
   <div>
     <Head><link href='/static/style.css' rel='stylesheet'/></Head>
     <div className='barContentList'>
@@ -21,10 +21,10 @@ const DemographicBar = () => (
     </div>
     <div className='barContentList'>
       <div className='barContent'>
-        <label>Option:</label>
+        <label>ByChannel:</label>
         <form>
         <div className='inform'>
-          {buildCheckbox(byApplication)}
+          {buildCheckbox(byBranch)}
         </div>
         </form>
       </div>
@@ -35,4 +35,4 @@ const DemographicBar = () => (
   </div>
 )
 
-export default DemographicBar
+export default ChannelBar

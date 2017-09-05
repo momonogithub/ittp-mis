@@ -38,8 +38,8 @@ const createRow = (rowHead, option) => {
 }
 
 
-const DemoRow = ({rowHead, option}) => (
-  <tbody>
+const DemoRow = ({rowHead, option, show}) => (
+  <tbody className={show===false? 'hidden':null}>
     <Head><link href='/static/style.css' rel='stylesheet'/></Head>
     <tr className='spanRow'>
       <td colSpan='10'>{rowHead}</td>

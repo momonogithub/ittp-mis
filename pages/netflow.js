@@ -1,7 +1,7 @@
 import Wrapper from '../components/Wrapper'
 import { store } from '../store'
-import NetflowContent from '../components/NetflowContent'
-import NetflowBar from '../components/NetflowBar'
+import NetflowContent from '../components/Netflow/NetflowContent'
+import NetflowBar from '../components/Netflow/NetflowBar'
 
 const Netflow = (props) => (
   <Wrapper 
