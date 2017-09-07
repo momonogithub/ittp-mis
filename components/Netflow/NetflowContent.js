@@ -1,6 +1,7 @@
 import Head from 'next/head'
 import NetflowRow from './NetflowRow'
-import { monthToMonth, createColHead } from '../../utilize'
+import { monthToMonth, createColHead, fullMonth } from '../../utilize'
+import { connect } from 'react-redux'
 
 const createRow = (date) => {
   const arr = []
@@ -44,20 +45,27 @@ const column = [
   '%',
 ]
 
-const NetflowContent = () => (
+const NetflowContent = (props) => (
   <table>
     <Head><link href='/static/style.css' rel='stylesheet'/></Head>
     <tbody>
       <tr className='spanRow'>
-        <td className='headTable' colSpan='30'>Risk: Netflow as Auguest 2017</td>
+        <td className='headTable' colSpan='30'>
+          Risk: Netflow as {fullMonth[props.month - 1]} {props.year}
+        </td>
       </tr>
       <tr>
         <th></th>
         {createColHead(column)}
       </tr>
-      {createRow(monthToMonth(2017, 8))}
+      {createRow(monthToMonth(props.year, props.month))}
     </tbody>
   </table>
 )
 
-export default NetflowContent
+const mapStateToProps = (state) => ({ 
+  month: state.date.month,
+  year: state.date.year
+})
+
+export default connect(mapStateToProps, null)(NetflowContent)

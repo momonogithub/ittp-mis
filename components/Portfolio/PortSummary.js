@@ -1,5 +1,6 @@
 import Head from 'next/head'
-import { createColHead, portCreateRow } from '../../utilize'
+import { createColHead, portCreateRow, fullMonth } from '../../utilize'
+import { connect } from 'react-redux'
 
 const createRow = (rowHead) => {
   const arr = []
@@ -63,12 +64,14 @@ const rowHead4 = [
   'Recovey Rate',
 ]
 
-const PortSummary = () => (
+const PortSummary = (props) => (
   <table>
     <Head><link href='/static/style.css' rel='stylesheet'/></Head>
     <tbody>
       <tr className='spanRow'>
-        <td className='headTable' colSpan='8'>Portfolio : Summary Page as Augest 2017</td>
+        <td className='headTable' colSpan='8'>
+          Portfolio : Summary Page as {fullMonth[props.month - 1]} {props.year}
+        </td>
       </tr>
       <tr>
         <th></th>
@@ -94,4 +97,9 @@ const PortSummary = () => (
   </table>
 )
 
-export default PortSummary
+const mapStateToProps = (state) => ({ 
+  month: state.date.month,
+  year: state.date.year
+})
+
+export default connect(mapStateToProps, null)(PortSummary)

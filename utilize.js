@@ -1,5 +1,9 @@
 import moment from 'moment'
 
+export const fullMonth = moment.months()
+
+export const shortMonth = moment.monthsShort()
+
 export const monthToMonth = (year, month) => {
   const arr = []
   let count = 0

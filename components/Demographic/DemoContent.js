@@ -1,8 +1,8 @@
 import Head from 'next/head'
 import DemoRow from './DemoRow'
-import { monthToMonth, createColHead } from '../../utilize'
+import { monthToMonth, createColHead, fullMonth } from '../../utilize'
+import { connect } from 'react-redux'
 
-const date = monthToMonth(2017,8)
 const gender = ['Female', 'Male']
 const monthlyIncome = [
   '< 8000',
@@ -38,23 +38,33 @@ const column = [
   'NPL rate',
 ]
 
-const DemoContent = () => (
-  <table>
-    <Head><link href='/static/style.css' rel='stylesheet'/></Head>
-    <tbody>
-      <tr className='spanRow'>
-        <td className='headTable' colSpan='10'>Demographic: Total Account Profile as Augest 2017</td>
-      </tr>
-      <tr>
-        <th></th>
-        {createColHead(column)}
-      </tr>
-    </tbody>
-    <DemoRow rowHead={'Month'} option={date} show={true}/>
-    <DemoRow rowHead={'Gender'} option={gender} show={true}/>
-    <DemoRow rowHead={'MonthlyIncome'} option={monthlyIncome} show={true}/>
-    <DemoRow rowHead={'Age'} option={age} show={true}/>
-  </table>
-)
+const DemoContent = (props) => {
+  const date = monthToMonth(props.year,props.month)
+  return (
+    <table>
+      <Head><link href='/static/style.css' rel='stylesheet'/></Head>
+      <tbody>
+        <tr className='spanRow'>
+          <td className='headTable' colSpan='10'>
+            Demographic: Total Account Profile as {fullMonth[props.month - 1]} {props.year}
+          </td>
+        </tr>
+        <tr>
+          <th></th>
+          {createColHead(column)}
+        </tr>
+      </tbody>
+      <DemoRow rowHead={'Month'} option={date} show={true}/>
+      <DemoRow rowHead={'Gender'} option={gender} show={true}/>
+      <DemoRow rowHead={'MonthlyIncome'} option={monthlyIncome} show={true}/>
+      <DemoRow rowHead={'Age'} option={age} show={true}/>
+    </table>
+  )
+}
 
-export default DemoContent
+const mapStateToProps = (state) => ({ 
+  month: state.date.month,
+  year: state.date.year
+})
+
+export default connect(mapStateToProps, null)(DemoContent)

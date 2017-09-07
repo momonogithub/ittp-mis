@@ -1,17 +1,20 @@
 import Head from 'next/head'
-import { monthToMonth, createColHead } from '../../utilize'
+import { monthToMonth, createColHead, fullMonth } from '../../utilize'
 import ChanelRow from './ChannelRow'
+import { connect } from 'react-redux'
 
-const ChannelContent = () => (
+const ChannelContent = (props) => (
   <table>
     <Head><link href='/static/style.css' rel='stylesheet'/></Head>
     <tbody>
       <tr className='spanRow'>
-        <td className='headTable' colSpan='14'>Acquistion as Augest 2017</td>
+        <td className='headTable' colSpan='14'>
+          Acquistion as {fullMonth[props.month - 1]} {props.year}
+        </td>
       </tr>
       <tr>
         <th></th>
-        {createColHead(monthToMonth(2017,8))}
+        {createColHead(monthToMonth(props.year,props.month))}
       </tr>
     </tbody>
     <ChanelRow branch='HQ' show={true}/>
@@ -21,4 +24,9 @@ const ChannelContent = () => (
   </table>
 )
 
-export default ChannelContent
+const mapStateToProps = (state) => ({ 
+  month: state.date.month,
+  year: state.date.year
+})
+
+export default connect(mapStateToProps, null)(ChannelContent)
