@@ -122,25 +122,6 @@
 .inform {
   margin-top: 10px;
 }
-.submitButton {
-  align-items: center;
-  display: inline-flex;
-  font-size: 14px;
-  height: 32px;
-  line-height: 24px;
-  position: relative;
-  vertical-align: top;
-  user-select: none;
-  cursor: pointer;
-  justify-content: center;
-  padding-left: 10px;
-  padding-right: 10px;
-  text-align: center;
-  white-space: nowrap;
-  background-color: #0a71ab;
-  border-width: 0;
-  color: white;
-}
 
 /* Table */
 .headTable {

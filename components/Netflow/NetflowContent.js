@@ -4,10 +4,10 @@ import { monthToMonth, createColHead } from '../../utilize'
 
 const createRow = (date) => {
   const arr = []
-  let count = date.length - 1
-  while (count > 0) {
+  let count = 0
+  while (count < date.length) {
     arr.push(<NetflowRow key={`${date[count]}NFR`} head={date[count]}/>)
-    count -= 1
+    count += 1
   }
   return arr
 }
@@ -49,13 +49,13 @@ const NetflowContent = () => (
     <Head><link href='/static/style.css' rel='stylesheet'/></Head>
     <tbody>
       <tr className='spanRow'>
-        <td className='headTable' colSpan='30'>Risk: Netflow as 2017</td>
+        <td className='headTable' colSpan='30'>Risk: Netflow as Auguest 2017</td>
       </tr>
       <tr>
         <th></th>
         {createColHead(column)}
       </tr>
-      {createRow(monthToMonth(2018, 1))}
+      {createRow(monthToMonth(2017, 8))}
     </tbody>
   </table>
 )

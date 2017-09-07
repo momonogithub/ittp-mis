@@ -17,9 +17,6 @@ const PortSummaryBar = () => (
         <PortType page='summary'/>
       </div>
       <div className='barContent'>
-        <button className='submitButton'>Submit</button>
-      </div>
-      <div className='barContent'>
         <button className='downloadButton'>Download Excel</button>
       </div>
     </div>

@@ -9,9 +9,6 @@ const NetflowBar = () => (
         <DateBar year={true} month={true}/>
       </div>
       <div className='barContent'>
-        <button className='submitButton'>Submit</button>
-      </div>
-      <div className='barContent'>
         <button className='downloadButton'>Download Excel</button>
       </div>
     </div>
