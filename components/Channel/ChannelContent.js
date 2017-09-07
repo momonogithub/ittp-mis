@@ -1,16 +1,6 @@
 import Head from 'next/head'
-import { monthToMonth } from '../../utilize'
+import { monthToMonth, createColHead } from '../../utilize'
 import ChanelRow from './ChannelRow'
-
-const createCol = (date) => {
-  const arr = []
-  let count = 0
-  while(count < date.length) {
-    arr.push(<th key={`${date[count]}ChannelCol`}>{date[count]}</th>)
-    count += 1
-  }
-  return arr
-}
 
 const ChannelContent = () => (
   <table>
@@ -21,7 +11,7 @@ const ChannelContent = () => (
       </tr>
       <tr>
         <th></th>
-        {createCol(monthToMonth(2017,8))}
+        {createColHead(monthToMonth(2017,8))}
       </tr>
     </tbody>
     <ChanelRow branch='HQ' show={true}/>

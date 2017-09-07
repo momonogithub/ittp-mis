@@ -18,6 +18,9 @@ const ChannelBar = () => (
       <div className='barContent'>
         <button className='submitButton'>Submit</button>
       </div>
+      <div className='barContent'>
+        <button className='downloadButton'>Download Excel</button>
+      </div>
     </div>
     <div className='barContentList'>
       <div className='barContent'>
@@ -27,9 +30,6 @@ const ChannelBar = () => (
           {buildCheckbox(byBranch)}
         </div>
         </form>
-      </div>
-      <div className='barContent'>
-        <button className='downloadButton'>Download Excel</button>
       </div>
     </div>
   </div>

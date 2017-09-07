@@ -1,7 +1,14 @@
 import Head from 'next/head'
+import { createColHead } from '../../utilize'
 
 const column = [
-
+  'Total',
+  'Cash-Easy',
+  'Cash-Extra',
+  'Staff-Cash',
+  'Ploan - Install',
+  'Nano - Revolve',
+  'Nano - Install',
 ]
 
 const PortSummary = () => (
@@ -13,13 +20,7 @@ const PortSummary = () => (
       </tr>
       <tr>
         <th></th>
-        <th>Total</th>
-        <th>Cash-Easy</th>
-        <th>Cash-Extra</th>
-        <th>Staff-Cash</th>
-        <th>Ploan - Install</th>
-        <th>Nano - Revolve</th>
-        <th>Nano - Install</th>
+        {createColHead(column)}
       </tr>
       <tr className='spanRow'>
         <td colSpan='8'>Portfolio</td>

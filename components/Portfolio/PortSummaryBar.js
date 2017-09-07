@@ -1,6 +1,7 @@
 import DateBar from '../DateBar'
 import Head from 'next/head'
 import { buildCheckbox } from '../../utilize'
+import PortType from './PortType'
 
 const byProduct = [
   'Total', 'Cash-Easy', 'Cash-Extra', 'Staff-Cash',
@@ -13,9 +14,13 @@ const PortSummaryBar = () => (
     <div className='barContentList'>
       <div className='barContent'>
         <DateBar year={true} month={true}/>
+        <PortType page='summary'/>
       </div>
       <div className='barContent'>
         <button className='submitButton'>Submit</button>
+      </div>
+      <div className='barContent'>
+        <button className='downloadButton'>Download Excel</button>
       </div>
     </div>
     <div className='barContentList'>
@@ -26,9 +31,6 @@ const PortSummaryBar = () => (
           {buildCheckbox(byProduct)}
         </div>
         </form>
-      </div>
-      <div className='barContent'>
-        <button className='downloadButton'>Download Excel</button>
       </div>
     </div>
   </div>

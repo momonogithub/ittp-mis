@@ -1,6 +1,6 @@
 import Head from 'next/head'
 import DemoRow from './DemoRow'
-import { monthToMonth } from '../../utilize'
+import { monthToMonth, createColHead } from '../../utilize'
 
 const date = monthToMonth(2017,8)
 const gender = ['Female', 'Male']
@@ -26,6 +26,18 @@ const age = [
   '55-60',
 ]
 
+const column = [
+  'New account',
+  'New account rate',
+  'Loan size',
+  'Loan size rate',
+  'Average int rate',
+  'Average loan term',
+  'Outstanding balance',
+  'Delinquent rate',
+  'NPL rate',
+]
+
 const DemoContent = () => (
   <table>
     <Head><link href='/static/style.css' rel='stylesheet'/></Head>
@@ -35,15 +47,7 @@ const DemoContent = () => (
       </tr>
       <tr>
         <th></th>
-        <th>New account</th>
-        <th>New account rate</th>
-        <th>Loan size</th>
-        <th>Loan size rate</th>
-        <th>Average int rate</th>
-        <th>Average loan term</th>
-        <th>Outstanding balance</th>
-        <th>Delinquent rate</th>
-        <th>NPL rate</th>
+        {createColHead(column)}
       </tr>
     </tbody>
     <DemoRow rowHead={'Month'} option={date} show={true}/>
