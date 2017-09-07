@@ -2,8 +2,8 @@ export const SET_MONTH = 'SET_MONTH'
 export const SET_YEAR = 'SET_YEAR'
 
 const initialState = {
-  month: 0,
-  year: 0,
+  month: new Date().getMonth()+1,
+  year: new Date().getFullYear(),
 }
 
 export const setMonth = month => ({
