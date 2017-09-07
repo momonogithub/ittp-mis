@@ -8,6 +8,11 @@ const byBranch = [
   'AMATA'
 ]
 
+const byProduct = [
+  'Total', 'Cash-Easy', 'Cash-Extra', 'Staff-Cash',
+  'Ploan - Install', 'Nano - Revolve', 'Nano - Install'
+]
+
 const ChannelBar = () => (
   <div>
     <Head><link href='/static/style.css' rel='stylesheet'/></Head>
@@ -25,6 +30,16 @@ const ChannelBar = () => (
         <form>
         <div className='inform'>
           {buildCheckbox(byBranch)}
+        </div>
+        </form>
+      </div>
+    </div>
+    <div className='barContentList'>
+      <div className='barContent'>
+        <label>ByProduct:</label>
+        <form>
+        <div className='inform'>
+          {buildCheckbox(byProduct)}
         </div>
         </form>
       </div>

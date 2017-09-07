@@ -2,10 +2,7 @@ import Head from 'next/head'
 import Router from 'next/router'
 
 
-const changePage = (event) => Router.push({
-  pathname: '/',
-  query: { page: event.target.value }
-})
+const changePage = (event) => Router.push(`/?page=${event.target.value}`, `/${event.target.value}`)
 
 const PortType = (props) => {
   return (
