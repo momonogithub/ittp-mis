@@ -1,5 +1,5 @@
 import Head from 'next/head'
-import { monthToMonth, createColHead, fullMonth } from '../../utilize'
+import { monthToMonth, createColHead, fullMonth } from '../../utilize/calculate'
 import { connect } from 'react-redux'
 
 const createRow = (rowHead) => {

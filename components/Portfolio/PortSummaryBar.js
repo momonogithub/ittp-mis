@@ -1,6 +1,6 @@
 import DateBar from '../DateBar'
 import Head from 'next/head'
-import { buildCheckbox } from '../../utilize'
+import { buildCheckbox } from '../../utilize/calculate'
 import PortType from './PortType'
 
 const byProduct = [

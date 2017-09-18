@@ -1,14 +1,14 @@
 import Head from 'next/head'
 import NetflowRow from './NetflowRow'
-import { monthToMonth, createColHead, fullMonth } from '../../utilize'
+import { monthToMonth, createColHead, fullMonth } from '../../utilize/calculate'
 import { connect } from 'react-redux'
 
-const createRow = (date) => {
+const createRow = (date, data) => {
   const arr = []
-  let count = 0
-  while (count < date.length) {
-    arr.push(<NetflowRow key={`${date[count]}NFR`} head={date[count]}/>)
-    count += 1
+  let count = data.length - 1
+  while (count >= 0) {
+    arr.push(<NetflowRow key={`${date[count]}NFR`} head={date[count]} dataRow={data[count]}/>)
+    count -= 1
   }
   return arr
 }
@@ -58,14 +58,15 @@ const NetflowContent = (props) => (
         <th></th>
         {createColHead(column)}
       </tr>
-      {createRow(monthToMonth(props.year, props.month))}
+      {createRow(monthToMonth(props.year, props.month), props.data)}
     </tbody>
   </table>
 )
 
 const mapStateToProps = (state) => ({ 
   month: state.date.month,
-  year: state.date.year
+  year: state.date.year,
+  data: state.netflow.riskNetflow
 })
 
 export default connect(mapStateToProps, null)(NetflowContent)

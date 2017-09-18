@@ -1,5 +1,5 @@
 import Wrapper from '../components/Wrapper'
-import { store } from '../store'
+import { configureStore } from '../store'
 import { bindActionCreators } from 'redux'
 import { setMonth, setYear } from '../reduxModules/date'
 import withRedux from 'next-redux-wrapper'
@@ -22,4 +22,4 @@ const mapDispatchToProps = (dispatch) => {
   }
 }
 
-export default withRedux(store, null, mapDispatchToProps)(Demographic)
+export default withRedux(configureStore, null, mapDispatchToProps)(Demographic)

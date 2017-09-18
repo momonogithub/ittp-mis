@@ -1,6 +1,6 @@
 import Head from 'next/head'
 import DateBar from '../DateBar'
-import { buildCheckbox } from '../../utilize'
+import { buildCheckbox } from '../../utilize/calculate'
 
 const byBranch = [
   'HQ',

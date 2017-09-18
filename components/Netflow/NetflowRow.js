@@ -1,19 +1,19 @@
 import Head from 'next/head'
 
-const createCol = (title) => {
+const createCol = (title, dataRow) => {
   const arr = []
-  let count = 1
+  let count = 0
   while(count < 30) {
-    arr.push(<td key={`${title}col${count}`}></td>)
+    arr.push(<td key={`${title}col${count}`}>{dataRow[count]}</td>)
     count += 1
   }
   return arr
 }
 
-const NetflowRow = ({ head }) => (
+const NetflowRow = ({head, dataRow}) => (
   <tr key={`${Head}row`}>
-    <td key={`${head}col0`}>{head}</td>
-    {createCol(head)}
+    <td key={`${head}colHead`}>{head}</td>
+    {createCol(head, dataRow)}
   </tr>
 )
 

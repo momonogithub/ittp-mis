@@ -1,10 +1,11 @@
 import { combineReducers } from 'redux'
 import { reducer as formReducer } from 'redux-form'
 import dateReducer from './date'
+import netflowReducer from './netflow'
 
 const reducers = {
   date: dateReducer,
-  form: formReducer     // <---- Mounted at 'form'
+  netflow: netflowReducer,
 }
 const rootReducer = combineReducers(reducers)
 

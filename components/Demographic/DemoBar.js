@@ -1,6 +1,6 @@
 import DateBar from '../DateBar'
 import Head from 'next/head'
-import { buildCheckbox } from '../../utilize'
+import { buildCheckbox } from '../../utilize/calculate'
 
 const byApplication = [
   '13 month', 'Gender', 'Loan size', 'Monthly Income', 'Age', 'Region',
