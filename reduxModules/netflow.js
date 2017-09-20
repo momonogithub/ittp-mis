@@ -17,7 +17,6 @@ const reducer = (state = intitalState, action) => {
         ...state
       }
     case FETCH_RISK_NETFLOW_SUCCESS:
-      console.log(action.payload)
       return {
         ...state,
         riskNetflow: action.payload

@@ -1,19 +1,10 @@
+import { Component } from 'react'
 import Head from 'next/head'
-import NetflowRow from './NetflowRow'
 import { monthToMonth, createColHead, fullMonth } from '../../utilize/calculate'
 import { connect } from 'react-redux'
 
-const createRow = (date, data) => {
-  const arr = []
-  let count = data.length - 1
-  while (count >= 0) {
-    arr.push(<NetflowRow key={`${date[count]}NFR`} head={date[count]} dataRow={data[count]}/>)
-    count -= 1
-  }
-  return arr
-}
-
-const column = [
+const columnHead = [
+  '',
   'Total OSB',
   'Current',
   '%',
@@ -45,23 +36,67 @@ const column = [
   '%',
 ]
 
-const NetflowContent = (props) => (
-  <table>
-    <Head><link href='/static/style.css' rel='stylesheet'/></Head>
-    <tbody>
-      <tr className='spanRow'>
-        <td className='headTable' colSpan='30'>
-          Risk: Netflow as {fullMonth[props.month - 1]} {props.year}
-        </td>
-      </tr>
-      <tr>
-        <th></th>
-        {createColHead(column)}
-      </tr>
-      {createRow(monthToMonth(props.year, props.month), props.data)}
-    </tbody>
-  </table>
-)
+export const combineData = (data, year, month) => {
+  const result = []
+  const date = monthToMonth(year, month)
+  let row = -1
+  while(row < data.length) {
+    let temp = []
+    let col = 0 
+    while(col < columnHead.length) {
+      if(row < 0) temp.push(columnHead[col]) // row -1 input columnHead
+      else {
+        if (col < 1) temp.push(date[row]) // col 0 input date
+        else temp.push(data[12-row][col - 1]) 
+      }
+      col += 1
+    }
+    result.push(temp)
+    row += 1
+  }
+  console.log(result)
+  return result
+}
+
+class NetflowContent extends Component {
+  createTable = (data) => {
+    const result = []
+    const limit = data.length - 1
+    let row = 0
+    while(row < data.length) {
+      if(row === 0) result.push(<tr key={`netflowRow${row}`}>{createColHead(data[0])}</tr>)
+      else result.push(<tr key={`${data[row]}row`}>{this.createcol(data[row], data[row])}</tr>)
+      row += 1
+    }
+    return result
+  }
+  
+  createcol = (key, dataRow) => {
+    const result = []
+    let col = 0
+    while(col < dataRow.length) {
+      result.push(<td key={`${key}${col}`}>{dataRow[col]}</td>)
+      col += 1
+    }
+    return result
+  }
+  
+  render() {
+    return (
+      <table>
+        <Head><link href='/static/style.css' rel='stylesheet'/></Head>
+        <tbody>
+          <tr className='spanRow'>
+            <td className='headTable' colSpan='30'>
+              Risk: Netflow as {fullMonth[this.props.month - 1]} {this.props.year}
+            </td>
+          </tr>
+          {this.createTable(combineData(this.props.data, this.props.year, this.props.month))}
+        </tbody>
+      </table>
+    )
+  }
+}
 
 const mapStateToProps = (state) => ({ 
   month: state.date.month,
