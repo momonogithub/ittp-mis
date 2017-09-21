@@ -1,3 +1,4 @@
+import { Component } from 'react'
 import Head from 'next/head'
 import { createColHead, portCreateRow, fullMonth } from '../../utilize/calculate'
 import { connect } from 'react-redux'
@@ -64,42 +65,64 @@ const rowHead4 = [
   'Recovey Rate',
 ]
 
-const PortSummary = (props) => (
-  <table>
-    <Head><link href='/static/style.css' rel='stylesheet'/></Head>
-    <tbody>
-      <tr className='spanRow'>
-        <td className='headTable' colSpan='8'>
-          Portfolio : Summary Page as {fullMonth[props.month - 1]} {props.year}
-        </td>
-      </tr>
-      <tr>
-        <th></th>
-        {createColHead(column)}
-      </tr>
-      <tr className='spanRow'>
-        <td colSpan='8'>Portfolio</td>
-      </tr>
-      {createRow(rowHead1)}
-      <tr className='spanRow'>
-        <td colSpan='8'>Acquistion</td>
-      </tr>
-      {createRow(rowHead2)}
-      <tr className='spanRow'>
-        <td colSpan='8'>Attrition</td>
-      </tr>
-      {createRow(rowHead3)}
-      <tr className='spanRow'>
-        <td colSpan='8'>Risk</td>
-      </tr>
-      {createRow(rowHead4)}
-    </tbody>
-  </table>
-)
+class PortSummary extends Component {
+  constructor(props) {
+    super(props)
+  }
+  
+  getProductList = (products = []) => {
+    const result = ['Total']
+    if(products.length > 0) {
+      products.map(product => {
+        result.push(product.name)
+        return product
+      })
+    }
+    console.log(result)
+    return result
+  }
+  
+  render() {
+    const products = this.getProductList(this.props.product)
+    return (
+      <table>
+        <Head><link href='/static/style.css' rel='stylesheet'/></Head>
+        <tbody>
+          <tr className='spanRow'>
+            <td className='headTable' colSpan={`${products.length+1}`}>
+              Portfolio : Summary Page as {fullMonth[this.props.month - 1]} {this.props.year}
+            </td>
+          </tr>
+          <tr>
+            <th></th>
+            {createColHead(products)}
+          </tr>
+          <tr className='spanRow'>
+            <td colSpan='8'>Portfolio</td>
+          </tr>
+          {createRow(rowHead1)}
+          <tr className='spanRow'>
+            <td colSpan='8'>Acquistion</td>
+          </tr>
+          {createRow(rowHead2)}
+          <tr className='spanRow'>
+            <td colSpan='8'>Attrition</td>
+          </tr>
+          {createRow(rowHead3)}
+          <tr className='spanRow'>
+            <td colSpan='8'>Risk</td>
+          </tr>
+          {createRow(rowHead4)}
+        </tbody>
+      </table>
+    )
+  }
+}
 
 const mapStateToProps = (state) => ({ 
   month: state.date.month,
-  year: state.date.year
+  year: state.date.year,
+  product: state.product,
 })
 
 export default connect(mapStateToProps, null)(PortSummary)

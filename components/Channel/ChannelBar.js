@@ -1,6 +1,6 @@
 import Head from 'next/head'
 import DateBar from '../DateBar'
-import { buildCheckbox } from '../../utilize/calculate'
+import ProductCheckbox from '../ProductCheckbox'
 
 const byBranch = [
   'HQ',
@@ -29,7 +29,6 @@ const ChannelBar = () => (
         <label>ByChannel:</label>
         <form>
         <div className='inform'>
-          {buildCheckbox(byBranch)}
         </div>
         </form>
       </div>
@@ -39,7 +38,7 @@ const ChannelBar = () => (
         <label>ByProduct:</label>
         <form>
         <div className='inform'>
-          {buildCheckbox(byProduct)}
+          <ProductCheckbox/>
         </div>
         </form>
       </div>

@@ -11,7 +11,7 @@ export const switchStatus = (name) => ({
   payload: name
 })
 
-const intitalState = {}
+const intitalState = []
 
 const reducer = (state = intitalState, action) => {
   switch (action.type) {

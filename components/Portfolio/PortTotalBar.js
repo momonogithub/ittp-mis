@@ -1,12 +1,6 @@
 import DateBar from '../DateBar'
 import Head from 'next/head'
-import { buildCheckbox } from '../../utilize/calculate'
 import PortType from './PortType'
-
-const byProduct = [
-  'Total', 'Cash-Easy', 'Cash-Extra', 'Staff-Cash',
-  'Ploan - Install', 'Nano - Revolve', 'Nano - Install'
-]
 
 const PortTotalBar = () => (
   <div>

@@ -16,25 +16,6 @@ export const monthToMonth = (year, month) => {
   return arr
 }
 
-export const buildCheckbox = (data) => {
-  const arr = []
-  let count = 0
-  while(count < data.length) {
-    arr.push(
-      <div key={`${data[count].name}Div`}>
-        <input 
-          type="checkbox" key={`${data[count].name}Box`} 
-          name={data[count].name} 
-          value={data[count].name}
-        />
-        {data[count].name}
-      </div>
-    )
-    count+=1
-  }
-  return arr
-}
-
 export const createColHead = (column) => {
   const arr = []
   let count = 1

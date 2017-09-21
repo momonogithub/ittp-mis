@@ -1,6 +1,5 @@
 import DateBar from '../DateBar'
 import Head from 'next/head'
-import { buildCheckbox } from '../../utilize/calculate'
 
 const byApplication = [
   '13 month', 'Gender', 'Loan size', 'Monthly Income', 'Age', 'Region',
@@ -24,7 +23,6 @@ const DemographicBar = () => (
         <label>Option:</label>
         <form>
         <div className='inform'>
-          {buildCheckbox(byApplication)}
         </div>
         </form>
       </div>

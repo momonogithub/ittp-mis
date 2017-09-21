@@ -54,7 +54,6 @@ export const combineData = (data, year, month) => {
     result.push(temp)
     row += 1
   }
-  console.log(result)
   return result
 }
 
@@ -75,7 +74,7 @@ class NetflowContent extends Component {
     const result = []
     let col = 0
     while(col < dataRow.length) {
-      result.push(<td key={`${key}${col}`}>{dataRow[col]}</td>)
+      result.push(<td key={`${key}${col}`} className={col === 0 ? null: 'cellNumber'}>{dataRow[col]}</td>)
       col += 1
     }
     return result
@@ -87,7 +86,7 @@ class NetflowContent extends Component {
         <Head><link href='/static/style.css' rel='stylesheet'/></Head>
         <tbody>
           <tr className='spanRow'>
-            <td className='headTable' colSpan='30'>
+            <td className='headTable' colSpan={`${columnHead.length}`}>
               Risk: Netflow as {fullMonth[this.props.month - 1]} {this.props.year}
             </td>
           </tr>

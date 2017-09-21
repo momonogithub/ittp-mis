@@ -1,7 +1,7 @@
 import { Component } from 'react'
 import DateBar from '../DateBar'
 import Head from 'next/head'
-import { buildCheckbox } from '../../utilize/calculate'
+import ProductCheckbox from '../ProductCheckbox'
 import PortType from './PortType'
 import { connect } from 'react-redux'
 
@@ -22,11 +22,7 @@ class PortSummaryBar extends Component {
         <div className='barContentList'>
           <div className='barContent'>
             <label>ByProduct:</label>
-            <form>
-            <div className='inform'>
-              {buildCheckbox(this.props.product)}
-            </div>
-            </form>
+            <ProductCheckbox/>
           </div>
         </div>
       </div>
