@@ -2,6 +2,7 @@ import { Component } from 'react'
 import Wrapper from '../components/Wrapper'
 import { configureStore } from '../store'
 import { setMonth, setYear } from '../reduxModules/date'
+import { fetchPortTotal } from '../reduxModules/portfolio'
 import { fetchProductList } from '../reduxModules/product'
 import { bindActionCreators } from 'redux'
 import withRedux from 'next-redux-wrapper'
@@ -9,6 +10,7 @@ import PortSummary from '../components/Portfolio/PortSummary'
 import PortSummaryBar from '../components/Portfolio/PortSummaryBar'
 import PortTotal from '../components/Portfolio/PortTotal'
 import PortTotalBar from '../components/Portfolio/PortTotalBar'
+import { isEqual } from 'lodash'
 
 class Index extends Component {
   constructor(props) {
@@ -17,6 +19,13 @@ class Index extends Component {
 
   componentDidMount() {
     this.props.fetchProductList()
+    this.props.fetchPortTotal(this.props.date)
+  }
+
+  componentWillReceiveProps(nextProps) {
+    if(!isEqual(this.props.date, nextProps.date)) {
+      this.props.fetchPortTotal(nextProps.date)
+    }
   }
 
   changePage = (page) => {
@@ -47,12 +56,17 @@ class Index extends Component {
   }
 }
 
+const mapStateToProps = (state) => ({ 
+  date: state.date
+})
+
 const mapDispatchToProps = (dispatch) => {
   return {
     setMonth: bindActionCreators(setMonth, dispatch),
     setYear: bindActionCreators(setYear, dispatch),
+    fetchPortTotal: bindActionCreators(fetchPortTotal, dispatch),
     fetchProductList: bindActionCreators(fetchProductList, dispatch)
   }
 }
 
-export default withRedux(configureStore, null, mapDispatchToProps)(Index)
+export default withRedux(configureStore, mapStateToProps, mapDispatchToProps)(Index)

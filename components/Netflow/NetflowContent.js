@@ -58,19 +58,23 @@ export const combineData = (data, year, month) => {
 }
 
 class NetflowContent extends Component {
-  createTable = (data) => {
+  constructor(props) {
+    super(props)
+  }
+
+  createRow = (data) => {
     const result = []
     const limit = data.length - 1
     let row = 0
     while(row < data.length) {
       if(row === 0) result.push(<tr key={`netflowRow${row}`}>{createColHead(data[0])}</tr>)
-      else result.push(<tr key={`${data[row]}row`}>{this.createcol(data[row], data[row])}</tr>)
+      else result.push(<tr key={`${data[row]}row`}>{this.createCol(`${data[row]}`, data[row])}</tr>)
       row += 1
     }
     return result
   }
   
-  createcol = (key, dataRow) => {
+  createCol = (key, dataRow) => {
     const result = []
     let col = 0
     while(col < dataRow.length) {
@@ -90,7 +94,7 @@ class NetflowContent extends Component {
               Risk: Netflow as {fullMonth[this.props.month - 1]} {this.props.year}
             </td>
           </tr>
-          {this.createTable(combineData(this.props.data, this.props.year, this.props.month))}
+          {this.createRow(combineData(this.props.data, this.props.year, this.props.month))}
         </tbody>
       </table>
     )

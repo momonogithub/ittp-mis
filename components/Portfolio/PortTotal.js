@@ -1,35 +1,10 @@
 import Head from 'next/head'
+import { Component } from 'react'
 import { monthToMonth, createColHead, fullMonth } from '../../utilize/calculate'
+import { fetchPortTotal } from '../../reduxModules/portfolio'
 import { connect } from 'react-redux'
 
-const createRow = (rowHead) => {
-  const arr = []
-  let count = 0
-  while(count < rowHead.length) {
-    arr.push(
-      <tr key={`${rowHead[count]}row`}>
-        <td key={`${rowHead[count]}Col0`}>{rowHead[count]}</td>
-        <td key={`${rowHead[count]}Col1`}></td>
-        <td key={`${rowHead[count]}Col2`}></td>
-        <td key={`${rowHead[count]}Col3`}></td>
-        <td key={`${rowHead[count]}Col4`}></td>
-        <td key={`${rowHead[count]}Col5`}></td>
-        <td key={`${rowHead[count]}Col6`}></td>
-        <td key={`${rowHead[count]}Col7`}></td>
-        <td key={`${rowHead[count]}Col8`}></td>
-        <td key={`${rowHead[count]}Col9`}></td>
-        <td key={`${rowHead[count]}Col10`}></td>
-        <td key={`${rowHead[count]}Col11`}></td>
-        <td key={`${rowHead[count]}Col12`}></td>
-        <td key={`${rowHead[count]}Col13`}></td>
-      </tr>
-    )
-    count += 1
-  }
-  return arr
-}
-
-const rowHead1 = [
+const rowHead = [
   'Total accounts',
   'Total customer',
   'Customer with 2 accounts',
@@ -38,21 +13,12 @@ const rowHead1 = [
   'Delinquent account',
   'NPL account',
   'Non-starter accounts',
-]
-
-const rowHead2 = [
   'Total loan size',
   'Total loan size in B1-B6',
   'Total payment received',
   'Delinquent amount',
-]
-
-const rowHead3 = [
   'Loan size',
   'Interest rate',
-]
-
-const rowHead4 = [
   'Growth rate',
   '(Delinquent + NPL amount)/total port ENR',
   'Delinquent rate (B1-B6)',
@@ -61,42 +27,99 @@ const rowHead4 = [
   'Recovery Rate',
 ]
 
-const PortTotal = (props) => (
-  <table>
-    <Head><link href='/static/style.css' rel='stylesheet'/></Head>
-    <tbody>
-      <tr className='spanRow'>
-        <td className='headTable' colSpan='14'>
-          Portfolio : Total Product as {fullMonth[props.month - 1]} {props.year}
-        </td>
-      </tr>
-      <tr>
-        <th></th>
-        {createColHead(monthToMonth(props.year, props.month))}
-      </tr>
-      <tr className='spanRow'>
-        <td colSpan='14'>Portfolio</td>
-      </tr>
-      {createRow(rowHead1)}
-      <tr className='spanRow'>
-        <td colSpan='14'>Acquistion</td>
-      </tr>
-      {createRow(rowHead2)}
-      <tr className='spanRow'>
-        <td colSpan='14'>Attrition</td>
-      </tr>
-      {createRow(rowHead3)}
-      <tr className='spanRow'>
-        <td colSpan='14'>Ratio</td>
-      </tr>
-      {createRow(rowHead4)}
-    </tbody>
-  </table>
-)
+export const combineData = (data, year, month) => {
+  const result = []
+  const date = monthToMonth(year, month)
+  let row = -1
+  if(data.length > 0) {
+    while(row < data[0].length) {
+      const arr = []
+      let col = 0
+      while(col <= 13) {
+        if(row < 0 ) {
+          arr.push(date[col-1])
+        } else {
+          if(col < 1){
+            arr.push(rowHead[row])
+          }else {
+            arr.push(data[13-col][row])
+          }
+        }
+        col += 1
+      }
+      result.push(arr)
+      row += 1
+    }
+  }
+  return result
+}
+
+class PortTotal extends Component {
+  constructor(props) {
+    super(props)
+  }
+  
+  createCol = (key, dataRow) => {
+    const result = []
+    let col = 0
+    while(col < dataRow.length) {
+      result.push(<td key={`${key}${col}`} className={col === 0 ? null: 'cellNumber'}>{dataRow[col]}</td>)
+      col += 1
+    }
+    return result
+  }
+
+  createRow = data => {
+    const result = []
+    const spanRow = [
+      'Accounts',
+      'Financial (Baht)',
+      'Average',
+      'Ratio'
+    ]
+    const atSpan = [1,9,13,15]
+    let count = 0
+    let row = 1
+    while(row < data.length) {
+      if(row === atSpan[count]) {
+        result.push(
+          <tr key={`${spanRow[count]}row`} className='spanRow'>
+            <td key={`${spanRow[count]}span`} colSpan='14'>{spanRow[count]}</td>
+          </tr>
+        )
+        count += 1
+      }
+      result.push(<tr key={`${data[row]}row`}>{this.createCol(`${data[row]}`, data[row])}</tr>)
+      row += 1
+    }
+    return result
+  }
+
+  render() {
+    return (
+      <table>
+        <Head><link href='/static/style.css' rel='stylesheet'/></Head>
+        <tbody>
+          <tr className='spanRow'>
+            <td className='headTable' colSpan='14'>
+              Portfolio : Total Product as {fullMonth[this.props.month - 1]} {this.props.year}
+            </td>
+          </tr>
+          <tr>
+            <th></th>
+            {createColHead(monthToMonth(this.props.year, this.props.month))}
+          </tr>
+          {this.createRow(combineData(this.props.portTotal, this.props.year, this.props.month))}
+        </tbody>
+      </table>
+    )
+  }
+} 
 
 const mapStateToProps = (state) => ({ 
   month: state.date.month,
-  year: state.date.year
+  year: state.date.year,
+  portTotal: state.portfolio.portTotal
 })
 
 export default connect(mapStateToProps, null)(PortTotal)

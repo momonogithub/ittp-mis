@@ -78,7 +78,6 @@ class PortSummary extends Component {
         return product
       })
     }
-    console.log(result)
     return result
   }
   
