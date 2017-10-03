@@ -15,7 +15,7 @@ const DemographicBar = () => (
         <DateBar year={true} month={true}/>
       </div>
       <div className='barContent'>
-        <button className='downloadButton'>Download Excel</button>
+        <button className='button download'>Download Excel</button>
       </div>
     </div>
     <div className='barContentList'>

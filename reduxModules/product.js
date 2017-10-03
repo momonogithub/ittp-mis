@@ -6,9 +6,9 @@ export const fetchProductList = () => ({
   type: FETCH_PRODUCTLIST
 })
 
-export const switchStatus = (name) => ({
+export const switchStatus = (id) => ({
   type: SWITCH_STATUS,
-  payload: name
+  payload: id.target.value
 })
 
 const intitalState = []
@@ -19,12 +19,15 @@ const reducer = (state = intitalState, action) => {
     return {
       ...state
     }
-    case FETCH_PRODUCTLIST_SUCCESS:
-      return action.payload
-    case SWITCH_STATUS:
+    case FETCH_PRODUCTLIST_SUCCESS: {
+      const product = action.payload.reduce((pre, { id, name, status }) => ({ ...pre, [id]: { name, status } }), {})
+      return product
+    }
+    case SWITCH_STATUS: {
       return {
         ...state
-      }
+      } 
+    }
     default:
       return state
   }

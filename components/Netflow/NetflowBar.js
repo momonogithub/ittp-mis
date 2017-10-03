@@ -23,7 +23,7 @@ class NetflowBar extends Component {
               data={combineData(this.props.data, this.props.year, this.props.month)}
               filename={"riskNetflow.csv"}
             >
-              <button className="downloadButton">Download Excel</button>
+              <button className="button download">Download Excel</button>
             </CSVLink>
           </div>
         </div>

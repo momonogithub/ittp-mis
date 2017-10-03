@@ -16,7 +16,7 @@ class PortSummaryBar extends Component {
             <PortType page='summary'/>
           </div>
           <div className='barContent'>
-            <button className='downloadButton'>Download Excel</button>
+            <button className='button download'>Download Excel</button>
           </div>
         </div>
         <div className='barContentList'>

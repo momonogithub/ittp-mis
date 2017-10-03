@@ -5,12 +5,17 @@ import PortType from './PortType'
 import { CSVLink } from 'react-csv'
 import { combineData } from './PortTotal'
 import { connect } from 'react-redux'
+import { fetchUpdatePortTotal } from '../../reduxModules/portfolio'
 
 class PortTotalBar extends Component {
   constructor(props) {
     super(props)
   }
-  
+
+  handleClick = () => {
+    this.props.fetchUpdatePortTotal(this.props.date)
+  }
+
   render() {
     return (
       <div>
@@ -25,8 +30,11 @@ class PortTotalBar extends Component {
               data={combineData(this.props.data, this.props.year, this.props.month)}
               filename={"portTotal.csv"}
             >
-              <button className="downloadButton">Download Excel</button>
+              <button className="button download">Download Excel</button>
             </CSVLink>
+          </div>
+          <div className='barContent'>
+            <button className="button update" onClick={this.handleClick}>Update Data</button>
           </div>
         </div>
       </div>
@@ -35,9 +43,10 @@ class PortTotalBar extends Component {
 }
 
 const mapStateToProps = (state) => ({
+  date: state.date,
   month: state.date.month,
   year: state.date.year, 
   data: state.portfolio.portTotal
 })
 
-export default connect(mapStateToProps)(PortTotalBar)
+export default connect(mapStateToProps, { fetchUpdatePortTotal })(PortTotalBar)

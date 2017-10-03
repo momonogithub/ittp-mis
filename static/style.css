@@ -101,7 +101,7 @@ a {
   padding: 10px;
   background-color: #ffffff;
 }
-.downloadButton {
+.button {
   align-items: center;
   display: inline-flex;
   font-size: 14px;
@@ -116,10 +116,18 @@ a {
   padding-right: 10px;
   text-align: center;
   white-space: nowrap;
-  background-color: #08AB20;
   border-width: 0;
   color: white;
 }
+
+.button.download {
+  background-color: #08AB20;
+}
+
+.button.update {
+  background-color: #128BDE;
+}
+
 .infield {
   margin-top: 5px;
 }

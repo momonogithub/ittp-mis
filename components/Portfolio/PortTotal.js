@@ -37,7 +37,8 @@ export const combineData = (data, year, month) => {
       let col = 0
       while(col <= 13) {
         if(row < 0 ) {
-          arr.push(date[col-1])
+          if(col === 0) arr.push('')
+          arr.push(date[col])
         } else {
           if(col < 1){
             arr.push(rowHead[row])

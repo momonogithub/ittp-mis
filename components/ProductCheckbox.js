@@ -1,32 +1,36 @@
 import Head from 'next/head'
 import { connect } from 'react-redux'
 import { Component } from 'react'
+import { switchStatus } from '../reduxModules/product' 
 
 class ProductCheckbox extends Component {
-  buildCheckbox = (product) => {
+  constructor(props) {
+    super(props)
+  }
+
+  buildCheckbox = products => {
     const result = []
-    let count = 0
-    while(count < product.length) {
+    for (let item in products) {
       result.push(
-        <div key={`${product[count].name}Div`}>
+        <div key={`${products[item].name}Div`}>
           <input 
-            type="checkbox" key={`${product[count].name}Box`} 
-            name={product[count].name} 
-            value={product[count].name}
+            type="checkbox" key={`${products[item].name}Box`} 
+            name={products[item].name} 
+            value={item}
+            onChange={this.props.switchStatus}
           />
-          {product[count].name}
+          {products[item].name}
         </div>
       )
-      count+=1
     }
     return result
   }
-  
+
   render() {
     return (
       <form>
         <div className='inform'>
-          {this.buildCheckbox(this.props.product)}
+          {this.buildCheckbox(this.props.products)}
         </div>
       </form>
     )
@@ -34,7 +38,7 @@ class ProductCheckbox extends Component {
 }
 
 const mapStateToProps = (state) => ({ 
-  product: state.product
+  products: state.product
 })
 
-export default connect(mapStateToProps, null)(ProductCheckbox)
+export default connect(mapStateToProps, { switchStatus })(ProductCheckbox)

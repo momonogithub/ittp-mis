@@ -70,13 +70,10 @@ class PortSummary extends Component {
     super(props)
   }
   
-  getProductList = (products = []) => {
+  getProductList = (products) => {
     const result = ['Total']
-    if(products.length > 0) {
-      products.map(product => {
-        result.push(product.name)
-        return product
-      })
+    for (let item in products) {
+      result.push(products[item].name)
     }
     return result
   }

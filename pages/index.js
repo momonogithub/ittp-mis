@@ -2,8 +2,8 @@ import { Component } from 'react'
 import Wrapper from '../components/Wrapper'
 import { configureStore } from '../store'
 import { setMonth, setYear } from '../reduxModules/date'
-import { fetchPortTotal } from '../reduxModules/portfolio'
-import { fetchProductList } from '../reduxModules/product'
+import { fetchPortTotal, fetchUpdatePortTotal } from '../reduxModules/portfolio'
+import { fetchProductList, switchStatus } from '../reduxModules/product'
 import { bindActionCreators } from 'redux'
 import withRedux from 'next-redux-wrapper'
 import PortSummary from '../components/Portfolio/PortSummary'
@@ -65,7 +65,9 @@ const mapDispatchToProps = (dispatch) => {
     setMonth: bindActionCreators(setMonth, dispatch),
     setYear: bindActionCreators(setYear, dispatch),
     fetchPortTotal: bindActionCreators(fetchPortTotal, dispatch),
-    fetchProductList: bindActionCreators(fetchProductList, dispatch)
+    fetchUpdatePortTotal: bindActionCreators(fetchUpdatePortTotal, dispatch),
+    fetchProductList: bindActionCreators(fetchProductList, dispatch),
+    switchStatus: bindActionCreators(switchStatus, dispatch)
   }
 }
 
