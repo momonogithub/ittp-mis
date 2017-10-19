@@ -1,6 +1,6 @@
 import Head from 'next/head'
 import DemoRow from './DemoRow'
-import { monthToMonth, createColHead, fullMonth } from '../../utilize/calculate'
+import { monthToMonth, createColHead, fullMonth } from '../../utilize/utils'
 import { connect } from 'react-redux'
 
 const gender = ['Female', 'Male']

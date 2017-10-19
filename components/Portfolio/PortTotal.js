@@ -1,7 +1,6 @@
 import Head from 'next/head'
 import { Component } from 'react'
-import { monthToMonth, createColHead, fullMonth } from '../../utilize/calculate'
-import { fetchPortTotal } from '../../reduxModules/portfolio'
+import { monthToMonth, createColHead, fullMonth, commaNumber } from '../../utilize/utils'
 import { connect } from 'react-redux'
 
 const rowHead = [
@@ -62,10 +61,8 @@ class PortTotal extends Component {
   
   createCol = (key, dataRow) => {
     const result = []
-    let col = 0
-    while(col < dataRow.length) {
-      result.push(<td key={`${key}${col}`} className={col === 0 ? null: 'cellNumber'}>{dataRow[col]}</td>)
-      col += 1
+    for(let col = 0 ; col < dataRow.length ; col += 1) {
+      result.push(<td key={`${key}${col}`} className={col === 0 ? null: 'cellNumber'}>{commaNumber(dataRow[col])}</td>)
     }
     return result
   }
@@ -90,7 +87,7 @@ class PortTotal extends Component {
         )
         count += 1
       }
-      result.push(<tr key={`${data[row]}row`}>{this.createCol(`${data[row]}`, data[row])}</tr>)
+      result.push(<tr key={`PortTotalRow ${[row]}`}>{this.createCol(`${data[row]}`, data[row])}</tr>)
       row += 1
     }
     return result

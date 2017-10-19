@@ -1,5 +1,14 @@
 import moment from 'moment'
 
+export const commaNumber = number => {
+  if(typeof number === 'number') {
+    const parts = number.toString().split(".");
+    parts[0] = parts[0].replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+    return parts.join(".");
+  }
+  return number
+}
+
 export const fullMonth = moment.months()
 
 export const shortMonth = moment.monthsShort()

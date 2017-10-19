@@ -2,7 +2,7 @@ import moment from 'moment'
 import React, {Component} from 'react'
 import { setMonth } from '../reduxModules/date'
 import { connect } from 'react-redux'
-import { fullMonth } from '../utilize/calculate'
+import { fullMonth } from '../utilize/utils'
 
 const buildMonth = () => {
   const arr = []

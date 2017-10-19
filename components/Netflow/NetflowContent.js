@@ -1,39 +1,17 @@
 import { Component } from 'react'
 import Head from 'next/head'
-import { monthToMonth, createColHead, fullMonth } from '../../utilize/calculate'
+import { monthToMonth, createColHead, fullMonth, commaNumber } from '../../utilize/utils'
 import { connect } from 'react-redux'
 
 const columnHead = [
-  '',
-  'Total OSB',
-  'Current',
-  '%',
-  'Bucket 1',
-  '%',
-  'Bucket 2',
-  '%',
-  'Bucket 3',
-  '%',
-  'Bucket 4',
-  '%',
-  'Bucket 5',
-  '%',
-  'Bucket 6',
-  '%',
-  'Bucket 7',
-  '%',
-  'Bucket 8',
-  '%',
-  'Bucket 9',
-  '%',
-  'Bucket 10',
-  '%',
-  'Bucket 11',
-  '%',
-  'Bucket 12',
-  '%',
-  'NPL',
-  '%',
+  '', 'Total OSB', 'Current', '%',
+  'Bucket 1', '%', 'Bucket 2', '%',
+  'Bucket 3', '%', 'Bucket 4', '%',
+  'Bucket 5', '%', 'Bucket 6', '%',
+  'Bucket 7', '%', 'Bucket 8', '%',
+  'Bucket 9', '%', 'Bucket 10', '%',
+  'Bucket 11', '%', 'Bucket 12', '%',
+  'NPL', '%',
 ]
 
 export const combineData = (data, year, month) => {
@@ -76,10 +54,8 @@ class NetflowContent extends Component {
   
   createCol = (key, dataRow) => {
     const result = []
-    let col = 0
-    while(col < dataRow.length) {
-      result.push(<td key={`${key}${col}`} className={col === 0 ? null: 'cellNumber'}>{dataRow[col]}</td>)
-      col += 1
+    for(let col = 0 ; col < dataRow.length ; col += 1) {
+      result.push(<td key={`${key}${col}`} className={col === 0 ? null: 'cellNumber'}>{commaNumber(dataRow[col])}</td>)
     }
     return result
   }

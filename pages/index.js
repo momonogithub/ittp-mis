@@ -2,7 +2,7 @@ import { Component } from 'react'
 import Wrapper from '../components/Wrapper'
 import { configureStore } from '../store'
 import { setMonth, setYear } from '../reduxModules/date'
-import { fetchPortTotal, fetchUpdatePortTotal } from '../reduxModules/portfolio'
+import { fetchPortTotal, fetchUpdatePortTotal, fetchPortSummary } from '../reduxModules/portfolio'
 import { fetchProductList, switchStatus } from '../reduxModules/product'
 import { bindActionCreators } from 'redux'
 import withRedux from 'next-redux-wrapper'
@@ -20,11 +20,13 @@ class Index extends Component {
   componentDidMount() {
     this.props.fetchProductList()
     this.props.fetchPortTotal(this.props.date)
+    this.props.fetchPortSummary(this.props.date)
   }
 
   componentWillReceiveProps(nextProps) {
     if(!isEqual(this.props.date, nextProps.date)) {
       this.props.fetchPortTotal(nextProps.date)
+      this.props.fetchPortSummary(this.props.date)
     }
   }
 
@@ -64,6 +66,7 @@ const mapDispatchToProps = (dispatch) => {
   return {
     setMonth: bindActionCreators(setMonth, dispatch),
     setYear: bindActionCreators(setYear, dispatch),
+    fetchPortSummary: bindActionCreators(fetchPortSummary, dispatch),
     fetchPortTotal: bindActionCreators(fetchPortTotal, dispatch),
     fetchUpdatePortTotal: bindActionCreators(fetchUpdatePortTotal, dispatch),
     fetchProductList: bindActionCreators(fetchProductList, dispatch),

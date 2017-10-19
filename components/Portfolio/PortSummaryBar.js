@@ -18,6 +18,9 @@ class PortSummaryBar extends Component {
           <div className='barContent'>
             <button className='button download'>Download Excel</button>
           </div>
+          <div className='barContent'>
+            <button className="button update" onClick={this.handleClick}>Update Data</button>
+          </div>
         </div>
         <div className='barContentList'>
           <div className='barContent'>

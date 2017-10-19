@@ -9,9 +9,9 @@ app.prepare()
   .then(() => {
     const server = express()
 
-    server.get('/index:page', (req, res) => {
-      console.log(req)
+    server.get('/index/:page', (req, res) => {
       const actualPage = '/index'
+      console.log('lul')
       const queryParams = { page: req.params.id } 
       app.render(req, res, actualPage, queryParams)
     })
