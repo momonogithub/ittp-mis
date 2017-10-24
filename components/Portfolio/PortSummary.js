@@ -31,7 +31,7 @@ export const combineData = (data, products) => {
   if(data.length > 0 && products.length > 0) {
     for(let row = 0 ; row <= rowHead.length ; row += 1) {
       const arr = []
-      for(let col = 0; col <= data.length + 1 ; col += 1) {
+      for(let col = 0; col < data.length + 1 ; col += 1) {
         if(row < 1) {
           if(col < 1) {
             arr.push('')
@@ -41,22 +41,14 @@ export const combineData = (data, products) => {
         } else {
           if(col < 1) {
             arr.push(rowHead[row - 1])
-          } else if(col === 1) {
-            arr.push(0)
           } else {
-            arr[1] += data[col - 2][row - 1]
-            arr.push(data[col - 2][row - 1])
-            if(col === data.length + 1) {
-
-            }
+            arr.push(commaNumber(data[col - 1][row - 1]))
           }
         }
       }
       result.push(arr)
     }
   }
-  // console.log(data)
-  // console.log(result)
   return result
 }
 

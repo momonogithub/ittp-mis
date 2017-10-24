@@ -26,7 +26,7 @@ class Index extends Component {
   componentWillReceiveProps(nextProps) {
     if(!isEqual(this.props.date, nextProps.date)) {
       this.props.fetchPortTotal(nextProps.date)
-      this.props.fetchPortSummary(this.props.date)
+      this.props.fetchPortSummary(nextProps.date)
     }
   }
 
