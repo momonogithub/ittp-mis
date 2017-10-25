@@ -3,10 +3,31 @@ import DateBar from '../DateBar'
 import Head from 'next/head'
 import ProductCheckbox from '../ProductCheckbox'
 import PortType from './PortType'
+import { combineData } from './PortSummary'
 import { connect } from 'react-redux'
+import { CSVLink } from 'react-csv'
+import { fetchUpdatePortSummary } from '../../reduxModules/portfolio'
 
 class PortSummaryBar extends Component {
+  constructor(props) {
+    super(props)
+  }
+  
+  getProductList = (products) => {
+    console.log(products)
+    const result = ['Total']
+    for (let item in products) {
+      result.push(products[item].name)
+    }
+    return result
+  }
+
+  handleClick = () => {
+    this.props.fetchUpdatePortSummary(this.props.date)
+  }
+
   render() {
+    const products = this.getProductList(this.props.products)
     return (
       <div>
         <Head><link href='/static/style.css' rel='stylesheet'/></Head>
@@ -16,7 +37,12 @@ class PortSummaryBar extends Component {
             <PortType page='summary'/>
           </div>
           <div className='barContent'>
-            <button className='button download'>Download Excel</button>
+            <CSVLink
+              data={combineData(this.props.data, products)}
+              filename={`portSummary${this.props.date.year}-${this.props.date.month}.csv`}
+            >
+              <button className="button download">Download Excel</button>
+            </CSVLink>
           </div>
           <div className='barContent'>
             <button className="button update" onClick={this.handleClick}>Update Data</button>
@@ -34,7 +60,9 @@ class PortSummaryBar extends Component {
 }
 
 const mapStateToProps = (state) => ({ 
-  product: state.product
+  date: state.date,
+  products: state.product,
+  data: state.portfolio.portSummary
 })
 
-export default connect(mapStateToProps, null)(PortSummaryBar)
+export default connect(mapStateToProps, { fetchUpdatePortSummary })(PortSummaryBar)
