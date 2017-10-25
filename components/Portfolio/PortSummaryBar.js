@@ -14,7 +14,6 @@ class PortSummaryBar extends Component {
   }
   
   getProductList = (products) => {
-    console.log(products)
     const result = ['Total']
     for (let item in products) {
       result.push(products[item].name)

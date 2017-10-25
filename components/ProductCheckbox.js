@@ -18,6 +18,7 @@ class ProductCheckbox extends Component {
             name={products[item].name} 
             value={item}
             onChange={this.props.switchStatus}
+            defaultChecked={products[item].status}
           />
           {products[item].name}
         </div>

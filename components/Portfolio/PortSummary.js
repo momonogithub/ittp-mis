@@ -60,23 +60,33 @@ class PortSummary extends Component {
   getProductList = (products) => {
     const result = ['Total']
     for (let item in products) {
-      result.push(products[item].name)
+      if(products[item].status === true) {
+        result.push(products[item].name)
+      }
     }
     return result
   }
 
   createRow = (data) => {
     const result = []
+    const colStatus = []
+    for(let item in this.props.product) {
+      colStatus.push(this.props.product[item].status)
+    }
     for(let row = 1 ; row < data.length ; row += 1) {
-      result.push(<tr key={`PortSumRow ${row}`}>{this.createCol(`${data[row][0]}`, data[row])}</tr>)
+      result.push(<tr key={`PortSumRow ${row}`}>{this.createCol(`${data[row][0]}`, data[row], colStatus)}</tr>)
     }
     return result
   }
   
-  createCol = (key, dataRow) => {
+  createCol = (key, dataRow, colStatus) => {
     const result = []
     for(let col = 0 ; col < dataRow.length ; col += 1) {
-      result.push(<td key={`${key}${col}`} className={col === 0 ? null: 'cellNumber'}>{dataRow[col]}</td>)
+      if(col < 2 ||  colStatus[col - 2] === true) {
+        result.push(
+          <td key={`${key}${col}`} className={col === 0 ? null: 'cellNumber'}>{dataRow[col]}</td>
+        )
+      }
     }
     return result
   }
