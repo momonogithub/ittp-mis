@@ -1,3 +1,4 @@
+import { Component } from 'react'
 import Wrapper from '../components/Wrapper'
 import { configureStore } from '../store'
 import { bindActionCreators } from 'redux'
@@ -6,14 +7,22 @@ import withRedux from 'next-redux-wrapper'
 import ChannelContent from '../components/Channel/ChannelContent'
 import ChannelBar from '../components/Channel/ChannelBar'
 
-const Channel = (props) => (
-  <Wrapper 
-    Content={ChannelContent} 
-    SideContent={ChannelBar} 
-    title='Channel'
-    pathname={props.url.pathname}
-  />
-)
+class Channel extends Component {
+  constructor(props) {
+    super(props)
+  }
+  
+  render() {
+    return(
+      <Wrapper 
+        Content={ChannelContent} 
+        SideContent={ChannelBar} 
+        title='Channel'
+        pathname={this.props.url.pathname}
+      />
+    )
+  }
+}
 
 const mapDispatchToProps = (dispatch) => {
   return {
