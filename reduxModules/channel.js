@@ -6,9 +6,7 @@ export const fetchChannel = date => ({
   payload: date,
 })
 
-const intitalState = {
-  channel: {},
-}
+const intitalState = {}
 
 const reducer = (state = intitalState, action) => {
   switch (action.type) {
@@ -19,7 +17,7 @@ const reducer = (state = intitalState, action) => {
     case FETCH_CHANNEL_SUCCESS:
       return {
         ...state,
-        channel: action.payload
+        ...action.payload
       }
     default:
       return state

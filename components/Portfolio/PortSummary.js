@@ -25,9 +25,19 @@ const rowHead = [
   'Recovey Rate',
 ]
 
-export const combineData = (data, products) => {
+export const combineData = (dataObj, products) => {
   const result = []
   const divideRow = []
+  const data = []
+  // convert JSON object to array
+  for(let product in dataObj) {
+    const arr = []
+    for(let item in dataObj[product]) {
+      arr.push(dataObj[product][item])
+    }
+    data.push(arr)
+  }
+  console.log(data)
   if(data.length > 0 && products.length > 0) {
     for(let row = 0 ; row <= rowHead.length ; row += 1) {
       const arr = []

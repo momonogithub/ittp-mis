@@ -26,10 +26,22 @@ const rowHead = [
   'Recovery Rate',
 ]
 
-export const combineData = (data, year, month) => {
+export const combineData = (dataObj, year, month) => {
   const result = []
+  const data = []
   const date = monthToMonth(year, month)
   let row = -1
+  
+  // convert JSON object to array
+  for(let month in dataObj) {
+    const arr = []
+    for(let item in dataObj[month]) {
+      arr.push(dataObj[month][item])
+    }
+    data.push(arr)
+  }
+
+  // display on table
   if(data.length > 0) {
     while(row < data[0].length) {
       const arr = []

@@ -3,6 +3,7 @@ import Wrapper from '../components/Wrapper'
 import { configureStore } from '../store'
 import { bindActionCreators } from 'redux'
 import { setMonth, setYear } from '../reduxModules/date'
+import { fetchChannel } from '../reduxModules/channel'
 import withRedux from 'next-redux-wrapper'
 import ChannelContent from '../components/Channel/ChannelContent'
 import ChannelBar from '../components/Channel/ChannelBar'
@@ -10,6 +11,16 @@ import ChannelBar from '../components/Channel/ChannelBar'
 class Channel extends Component {
   constructor(props) {
     super(props)
+  }
+
+  componentDidMount() {
+    this.props.fetchChannel(this.props.date)
+  }
+
+  componentWillReceiveProps(nextProps) {
+    if(!isEqual(this.props.date, nextProps.date)) {
+      this.props.fetchChannel(nextProps.date)
+    }
   }
   
   render() {
@@ -24,11 +35,16 @@ class Channel extends Component {
   }
 }
 
+const mapStateToProps = (state) => ({ 
+  date: state.date
+})
+
 const mapDispatchToProps = (dispatch) => {
   return {
     setMonth: bindActionCreators(setMonth, dispatch),
-    setYear: bindActionCreators(setYear, dispatch)
+    setYear: bindActionCreators(setYear, dispatch),
+    fetchChannel: bindActionCreators(fetchChannel, dispatch),
   }
 }
 
-export default withRedux(configureStore, null, mapDispatchToProps)(Channel)
+export default withRedux(configureStore, mapStateToProps, mapDispatchToProps)(Channel)
