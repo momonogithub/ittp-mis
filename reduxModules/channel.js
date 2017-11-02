@@ -15,10 +15,7 @@ const reducer = (state = intitalState, action) => {
         ...state
       }
     case FETCH_CHANNEL_SUCCESS:
-      return {
-        ...state,
-        ...action.payload
-      }
+      return action.payload
     default:
       return state
   }

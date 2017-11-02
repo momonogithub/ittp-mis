@@ -1,13 +1,13 @@
-export const FETCH_PRODUCTLIST = 'ittp/FETCH_PRODUCTLIST'
-export const FETCH_PRODUCTLIST_SUCCESS = 'ittp/FETCH_PRODUCTLIST_SUCCESS'
-export const SWITCH_PRODUCT_STATUS = 'ittp/SWITCH_PRODUCT_STATUS'
+export const FETCH_WAYCODE = 'ittp/FETCH_WAYCODE'
+export const FETCH_WAYCODE_SUCCESS = 'ittp/FETCH_WAYCODE_SUCCESS'
+export const SWITCH_WAYCODE_STATUS = 'ittp/SWITCH_WAYCODE_STATUS'
 
-export const fetchProductList = () => ({
-  type: FETCH_PRODUCTLIST
+export const fetchWayCode = () => ({
+  type: FETCH_WAYCODE
 })
 
-export const switchProductStatus = (id) => ({
-  type: SWITCH_PRODUCT_STATUS,
+export const switchWayCodeStatus = (id) => ({
+  type: SWITCH_WAYCODE_STATUS,
   payload: id.target.value
 })
 
@@ -15,14 +15,14 @@ const intitalState = {}
 
 const reducer = (state = intitalState, action) => {
   switch (action.type) {
-    case FETCH_PRODUCTLIST:
+    case FETCH_WAYCODE:
     return {
       ...state
     }
-    case FETCH_PRODUCTLIST_SUCCESS: {
+    case FETCH_WAYCODE_SUCCESS: {
       return action.payload
     }
-    case SWITCH_PRODUCT_STATUS: {
+    case SWITCH_WAYCODE_STATUS: {
       const name = state[action.payload].name
       const status = !state[action.payload].status
       return {

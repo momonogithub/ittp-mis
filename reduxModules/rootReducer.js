@@ -5,6 +5,7 @@ import channelReducer from './channel'
 import netflowReducer from './netflow'
 import productReducer from './product'
 import portfolioReducer from './portfolio'
+import wayCodeReducer from './wayCode'
 
 const reducers = {
   date: dateReducer,
@@ -12,6 +13,7 @@ const reducers = {
   product: productReducer,
   channel: channelReducer,
   netflow: netflowReducer,
+  wayCode: wayCodeReducer
 }
 const rootReducer = combineReducers(reducers)
 

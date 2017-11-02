@@ -37,7 +37,6 @@ export const combineData = (dataObj, products) => {
     }
     data.push(arr)
   }
-  console.log(data)
   if(data.length > 0 && products.length > 0) {
     for(let row = 0 ; row <= rowHead.length ; row += 1) {
       const arr = []

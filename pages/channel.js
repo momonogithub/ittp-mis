@@ -4,9 +4,11 @@ import { configureStore } from '../store'
 import { bindActionCreators } from 'redux'
 import { setMonth, setYear } from '../reduxModules/date'
 import { fetchChannel } from '../reduxModules/channel'
+import { fetchWayCode, switchWayCodeStatus } from '../reduxModules/wayCode'
 import withRedux from 'next-redux-wrapper'
 import ChannelContent from '../components/Channel/ChannelContent'
 import ChannelBar from '../components/Channel/ChannelBar'
+import { isEqual } from 'lodash'
 
 class Channel extends Component {
   constructor(props) {
@@ -14,6 +16,7 @@ class Channel extends Component {
   }
 
   componentDidMount() {
+    this.props.fetchWayCode()
     this.props.fetchChannel(this.props.date)
   }
 
@@ -44,6 +47,7 @@ const mapDispatchToProps = (dispatch) => {
     setMonth: bindActionCreators(setMonth, dispatch),
     setYear: bindActionCreators(setYear, dispatch),
     fetchChannel: bindActionCreators(fetchChannel, dispatch),
+    fetchWayCode: bindActionCreators(fetchWayCode, dispatch)
   }
 }
 

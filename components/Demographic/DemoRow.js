@@ -14,8 +14,6 @@ const createRow = (rowHead, option) => {
         <td key={`${option[count]}data5`}></td>
         <td key={`${option[count]}data6`}></td>
         <td key={`${option[count]}data7`}></td>
-        <td key={`${option[count]}data8`}></td>
-        <td key={`${option[count]}data9`}></td>
       </tr>
     )
     count +=1
@@ -30,8 +28,6 @@ const createRow = (rowHead, option) => {
       <td key={`${rowHead}TotalData5`}></td>
       <td key={`${rowHead}TotalData6`}></td>
       <td key={`${rowHead}TotalData7`}></td>
-      <td key={`${rowHead}TotalData8`}></td>
-      <td key={`${rowHead}TotalData9`}></td>
     </tr>
   )
   return arr

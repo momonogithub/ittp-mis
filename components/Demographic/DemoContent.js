@@ -28,9 +28,7 @@ const age = [
 
 const column = [
   'New account',
-  'New account rate',
   'Loan size',
-  'Loan size rate',
   'Average int rate',
   'Average loan term',
   'Outstanding balance',
@@ -45,7 +43,7 @@ const DemoContent = (props) => {
       <Head><link href='/static/style.css' rel='stylesheet'/></Head>
       <tbody>
         <tr className='spanRow'>
-          <td className='headTable' colSpan='10'>
+          <td className='headTable' colSpan='8'>
             Demographic: Total Account Profile as {fullMonth[props.month - 1]} {props.year}
           </td>
         </tr>

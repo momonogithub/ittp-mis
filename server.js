@@ -11,7 +11,6 @@ app.prepare()
 
     server.get('/index/:page', (req, res) => {
       const actualPage = '/index'
-      console.log('lul')
       const queryParams = { page: req.params.id } 
       app.render(req, res, actualPage, queryParams)
     })
