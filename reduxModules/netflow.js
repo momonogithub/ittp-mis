@@ -1,8 +1,14 @@
-export const FETCH_RISK_NETFLOW = 'ittp/FETCH_RISK_NETFLOW'
-export const FETCH_RISK_NETFLOW_SUCCESS = 'ittp/FETCH_RISK_NETFLOW_SUCCESS'
+export const FETCH_NETFLOW = 'ittp/FETCH_NETFLOW'
+export const FETCH_UPDATE_NETFLOW = 'ittp/FETCH_UPDATE_NETFLOW'
+export const FETCH_NETFLOW_SUCCESS = 'ittp/FETCH_NETFLOW_SUCCESS'
 
-export const fetchRiskNetflow = date => ({
-  type: FETCH_RISK_NETFLOW,
+export const fetchNetflow = date => ({
+  type: FETCH_NETFLOW,
+  payload: date,
+})
+
+export const fetchUpdateNetflow = date => ({
+  type: FETCH_UPDATE_NETFLOW,
   payload: date,
 })
 
@@ -12,11 +18,7 @@ const intitalState = {
 
 const reducer = (state = intitalState, action) => {
   switch (action.type) {
-    case FETCH_RISK_NETFLOW:
-      return {
-        ...state
-      }
-    case FETCH_RISK_NETFLOW_SUCCESS:
+    case FETCH_NETFLOW_SUCCESS:
       return {
         ...state,
         riskNetflow: action.payload

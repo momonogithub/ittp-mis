@@ -1,6 +1,7 @@
 import { Component } from 'react'
 import Head from 'next/head'
 import { monthToMonth, createColHead, fullMonth, commaNumber } from '../../utilize/utils'
+import { values } from 'lodash'
 import { connect } from 'react-redux'
 
 const columnHead = [
@@ -14,24 +15,22 @@ const columnHead = [
   'NPL', '%',
 ]
 
-export const combineData = (data, year, month) => {
-  const result = []
+export const combineData = (dataObj, year, month) => {
+  
   const date = monthToMonth(year, month)
-  let row = -1
-  while(row < data.length) {
-    let temp = []
-    let col = 0 
-    while(col < columnHead.length) {
-      if(row < 0) temp.push(columnHead[col]) // row -1 input columnHead
-      else {
-        if (col < 1) temp.push(date[row]) // col 0 input date
-        else temp.push(data[12-row][col - 1]) 
-      }
-      col += 1
+  const result = [columnHead]
+  const data = values(dataObj)
+  for(let month = data.length - 1 ; month >= 0 ; month -= 1 ) {
+    const arr = [date[12-month], data[month].osbTotal, data[month].osb, data[month].osbPercent]
+    const bucket = data[month].bucket
+    const percentBucket = data[month].percentBucket
+    for(let b = 0 ; b < bucket.length ; b += 1 ) {
+      arr.push(bucket[b])
+      arr.push(percentBucket[b])
     }
-    result.push(temp)
-    row += 1
+    result.push(arr)
   }
+  
   return result
 }
 

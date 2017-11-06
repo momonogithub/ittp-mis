@@ -4,10 +4,15 @@ import DateBar from '../DateBar'
 import { CSVLink } from 'react-csv'
 import { combineData } from './NetflowContent'
 import { connect } from 'react-redux'
+import { fetchUpdateNetflow } from '../../reduxModules/netflow'
 
 class NetflowBar extends Component {
   constructor(props) {
     super(props)
+  }
+
+  handleClick = () => {
+    this.props.fetchUpdateNetflow(this.props.date)
   }
   
   render() {
@@ -26,6 +31,9 @@ class NetflowBar extends Component {
               <button className="button download">Download Excel</button>
             </CSVLink>
           </div>
+          <div className='barContent'>
+            <button className="button update" onClick={this.handleClick}>Update Data</button>
+          </div>
         </div>
       </div>
     )
@@ -34,8 +42,9 @@ class NetflowBar extends Component {
 
 const mapStateToProps = (state) => ({
   month: state.date.month,
-  year: state.date.year, 
+  year: state.date.year,
+  date: state.date,
   data: state.netflow.riskNetflow
 })
 
-export default connect(mapStateToProps)(NetflowBar)
+export default connect(mapStateToProps, { fetchUpdateNetflow })(NetflowBar)

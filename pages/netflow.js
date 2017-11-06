@@ -4,7 +4,7 @@ import { configureStore } from '../store'
 import { bindActionCreators } from 'redux'
 import withRedux from 'next-redux-wrapper'
 import { setMonth, setYear } from '../reduxModules/date'
-import { fetchRiskNetflow } from '../reduxModules/netflow'
+import { fetchNetflow, fetchUpdateNetflow } from '../reduxModules/netflow'
 import NetflowContent from '../components/Netflow/NetflowContent'
 import NetflowBar from '../components/Netflow/NetflowBar'
 import { isEqual } from 'lodash'
@@ -15,12 +15,12 @@ class Netflow extends Component {
   }
 
   componentDidMount() {
-    this.props.fetchRiskNetflow(this.props.date)
+    this.props.fetchNetflow(this.props.date)
   }
 
   componentWillReceiveProps(nextProps) {
     if(!isEqual(this.props.date, nextProps.date)) {
-      this.props.fetchRiskNetflow(nextProps.date)
+      this.props.fetchNetflow(nextProps.date)
     }
   }
 
@@ -44,7 +44,8 @@ const mapDispatchToProps = (dispatch) => {
   return {
     setMonth: bindActionCreators(setMonth, dispatch),
     setYear: bindActionCreators(setYear, dispatch),
-    fetchRiskNetflow: bindActionCreators(fetchRiskNetflow, dispatch),
+    fetchNetflow: bindActionCreators(fetchNetflow, dispatch),
+    fetchUpdateNetflow: bindActionCreators(fetchUpdateNetflow, dispatch)
   }
 }
 
