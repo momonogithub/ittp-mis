@@ -1,32 +1,9 @@
+import { Component } from 'react'
 import Head from 'next/head'
-import DemoRow from './DemoRow'
-import { monthToMonth, createColHead, fullMonth } from '../../utilize/utils'
+import { monthToMonth, createColHead, fullMonth, commaNumber } from '../../utilize/utils'
 import { connect } from 'react-redux'
 
-const gender = ['Female', 'Male']
-const monthlyIncome = [
-  '< 8000',
-  '8000 - 10000',
-  '10000 - 12000',
-  '12000 - 15000',
-  '15000 - 20000',
-  '20000 - 30000',
-  '30000 - 40000',
-  '40000 - 50000',
-  '> 50000',
-]
-const age = [
-  '20-25',
-  '25-30',
-  '30-35',
-  '35-40',
-  '40-45',
-  '45-50',
-  '50-55',
-  '55-60',
-]
-
-const column = [
+const rowHead = [
   'New account',
   'Loan size',
   'Average int rate',
@@ -36,33 +13,100 @@ const column = [
   'NPL rate',
 ]
 
-const DemoContent = (props) => {
-  const date = monthToMonth(props.year,props.month)
-  return (
-    <table>
-      <Head><link href='/static/style.css' rel='stylesheet'/></Head>
-      <tbody>
-        <tr className='spanRow'>
-          <td className='headTable' colSpan='8'>
-            Demographic: Total Account Profile as {fullMonth[props.month - 1]} {props.year}
-          </td>
-        </tr>
-        <tr>
-          <th></th>
-          {createColHead(column)}
-        </tr>
-      </tbody>
-      <DemoRow rowHead={'Month'} option={date} show={true}/>
-      <DemoRow rowHead={'Gender'} option={gender} show={true}/>
-      <DemoRow rowHead={'MonthlyIncome'} option={monthlyIncome} show={true}/>
-      <DemoRow rowHead={'Age'} option={age} show={true}/>
-    </table>
-  )
+export const combineData = (data) => {
+  const result = []
+  let header = ['']
+  header = header.concat(rowHead)
+  result.push(header)
+  for(let demo in data) {
+    const row = []
+    row.push(demo, '', '', '', '', '' ,'', '')
+    result.push(row)
+    for(let group in data[demo]){
+      const subRow = []
+      subRow.push(
+        group,
+        data[demo][group].newAccount,
+        data[demo][group].loanSize,
+        data[demo][group].averageInt,
+        data[demo][group].averageLoanTerm,
+        data[demo][group].osb,
+        data[demo][group].delinquentRate,
+        data[demo][group].nplRate,
+      )
+      result.push(subRow)
+    }   
+  }
+  return result
+}
+
+class DemoContent extends Component {
+  constructor(props) {
+    super(props)
+  }
+
+  createRow = data => {
+    const result = []
+    let subRow = ''
+    for(let row = 1 ; row < data.length ; row +=1) {
+      if(data[row][1] === '') {
+        subRow = data[row][0]
+        if(this.props.demoList[`${subRow}`].status) {
+          result.push(
+            <tr key={`${data[row][0]}row`} className='spanRow'>
+              <td key={`${data[row][0]}span`} colSpan={`${rowHead.length + 1}`}>{`${data[row][0]}`}</td>
+            </tr>
+          )
+        }
+      }else if (subRow !== '') {
+        if(this.props.demoList[`${subRow}`].status) {
+          const key = `${subRow}${data[row][0]}`
+          result.push(
+            <tr key={`${key}`}>
+              {this.createCol(key, data[row])}
+            </tr>
+          )
+        }
+      }
+    }
+    return result
+  }
+
+  createCol = (key, dataRow) => {
+    const result = []
+    for(let col = 0 ; col < dataRow.length ; col += 1) {
+      result.push(<td key={`${key}${col}`} className={col === 0 ? null: 'cellNumber'}>{commaNumber(dataRow[col])}</td>)
+    }
+    return result
+  }
+
+  render() {
+    return (
+      <table>
+        <Head><link href='/static/style.css' rel='stylesheet'/></Head>
+        <tbody>
+          <tr className='spanRow'>
+            <td className='headTable' colSpan={`${rowHead.length + 1}`}>
+              Demographic: Total Account Profile as {fullMonth[this.props.month - 1]} {this.props.year}
+            </td>
+          </tr>
+          <tr>
+            <th></th>
+            {createColHead(rowHead)}
+          </tr>
+          {this.createRow(combineData(this.props.demo))}
+        </tbody>
+      </table>
+    )
+  }
+
 }
 
 const mapStateToProps = (state) => ({ 
   month: state.date.month,
-  year: state.date.year
+  year: state.date.year,
+  demo: state.demographic.demographic,
+  demoList: state.demographic.demoList
 })
 
 export default connect(mapStateToProps, null)(DemoContent)
