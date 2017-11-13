@@ -1,5 +1,7 @@
 import moment from 'moment'
 
+export const fixedTwoDecimal = data => Math.ceil(data * 100) / 100
+
 export const commaNumber = number => {
   if(typeof number === 'number') {
     const parts = number.toString().split(".");

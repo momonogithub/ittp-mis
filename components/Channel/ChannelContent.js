@@ -1,6 +1,11 @@
 import Head from 'next/head'
 import { Component } from 'react'
-import { monthToMonth, createColHead, fullMonth, commaNumber } from '../../utilize/utils'
+import { 
+  monthToMonth,
+  createColHead,
+  fullMonth,
+  commaNumber,
+  fixedTwoDecimal } from '../../utilize/utils'
 import { values } from 'lodash'
 import { connect } from 'react-redux'
 
@@ -12,16 +17,17 @@ export const combineData = (channel, wayCodes, date) => {
   const branchArr = ['Branch']
   const saleArr = ['Sale']
   let header =  ['']
+  let percent
   result.push(header.concat(date))
   for(let count = month.length - 1 ; count >=0 ; count -=1) {
-    const totalBranch = month[count]['Branch']
-    const totalSale = month[count]['Sale']
-    branchArr.push(
-      `${totalBranch.Approved} : ${totalBranch.Application} ${totalBranch.Percent}`
-    )
-    saleArr.push(
-      `${totalSale.Approved} : ${totalSale.Application} ${totalSale.Percent}`
-    )
+    const countBranch = {
+      Application : 0,
+      Approved : 0
+    }
+    const countSale = {
+      Application : 0,
+      Approved : 0
+    }
     for(let code in wayCodes) {
       const subChannel = month[count][code]
       const value = subChannel === undefined? 
@@ -33,6 +39,10 @@ export const combineData = (channel, wayCodes, date) => {
         const arr = branch[code]
         arr.push(value)
         branch[code] = arr
+        if(subChannel !== undefined) {
+          countBranch.Application += subChannel.Application
+          countBranch.Approved += subChannel.Approved
+        }
       }else { // By Sale
         if(sale[code] === undefined) {
           sale[code] = [code]
@@ -40,8 +50,22 @@ export const combineData = (channel, wayCodes, date) => {
         const arr = sale[code]
         arr.push(value)
         sale[code] = arr
+        if(subChannel !== undefined) {
+          countSale.Application += subChannel.Application
+          countSale.Approved += subChannel.Approved
+        }
       }
     }
+    percent = countBranch.Application === 0 ? 
+      'N/A' : `${fixedTwoDecimal(countBranch.Approved  / countBranch.Application * 100)}%`
+    branchArr.push(
+      `${countBranch.Approved} : ${countBranch.Application} ${percent}`
+    )
+    percent = countSale.Application === 0 ? 
+    'N/A' : `${fixedTwoDecimal(countSale.Approved  / countSale.Application * 100)}%`
+    saleArr.push(
+      `${countSale.Approved} : ${countSale.Application} ${percent}`
+    )
   }
 
   result.push(branchArr)
