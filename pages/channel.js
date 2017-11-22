@@ -3,7 +3,7 @@ import Wrapper from '../components/Wrapper'
 import { configureStore } from '../store'
 import { bindActionCreators } from 'redux'
 import { setMonth, setYear } from '../reduxModules/date'
-import { fetchChannel } from '../reduxModules/channel'
+import { fetchChannel, fetchUpdateChannel } from '../reduxModules/channel'
 import { fetchWayCode, switchWayCodeStatus } from '../reduxModules/wayCode'
 import withRedux from 'next-redux-wrapper'
 import ChannelContent from '../components/Channel/ChannelContent'
@@ -47,6 +47,7 @@ const mapDispatchToProps = (dispatch) => {
     setMonth: bindActionCreators(setMonth, dispatch),
     setYear: bindActionCreators(setYear, dispatch),
     fetchChannel: bindActionCreators(fetchChannel, dispatch),
+    fetchUpdateChannel: bindActionCreators(fetchUpdateChannel, dispatch),
     fetchWayCode: bindActionCreators(fetchWayCode, dispatch)
   }
 }

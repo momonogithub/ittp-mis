@@ -53,8 +53,19 @@ export const combineData = (dataObj, year, month) => {
         } else {
           if(col < 1){
             arr.push(rowHead[row])
-          }else {
-            arr.push(data[13-col][row])
+          } else {
+            if(data[13-col][row] !== 'No Data') {
+              if(data[13-col][row] === null) {
+                arr.push('N/A')
+              }
+              else if(row < 13) {
+                arr.push(data[13-col][row])
+              }else {
+                arr.push(`${data[13-col][row]}%`)
+              }
+            }else {
+              arr.push(data[13-col][row])
+            }
           }
         }
         col += 1
@@ -74,7 +85,11 @@ class PortTotal extends Component {
   createCol = (key, dataRow) => {
     const result = []
     for(let col = 0 ; col < dataRow.length ; col += 1) {
-      result.push(<td key={`${key}${col}`} className={col === 0 ? null: 'cellNumber'}>{commaNumber(dataRow[col])}</td>)
+      result.push(
+        <td key={`${key}${col}`} className={col === 0 ? 'cellText': 'cellNumber'}>
+          {commaNumber(dataRow[col])}
+        </td>
+      )
     }
     return result
   }
@@ -112,7 +127,9 @@ class PortTotal extends Component {
         <tbody>
           <tr className='spanRow'>
             <td className='headTable' colSpan='14'>
-              Portfolio : Total Product as {fullMonth[this.props.month - 1]} {this.props.year}
+              <label>
+                Portfolio : Total Product as {fullMonth[this.props.month - 1]} {this.props.year}
+              </label>
             </td>
           </tr>
           <tr>

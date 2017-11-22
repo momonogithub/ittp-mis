@@ -2,6 +2,10 @@ a {
     text-decoration: none;
 }
 
+label {
+  font-family: "Segoe UI",Arial,sans-serif;
+}
+
 /* Wrapper */
 .wrapper {
   position: fixed;
@@ -10,12 +14,14 @@ a {
   bottom: 0;
   right: 0;
   overflow: auto;
+  max-width: 100%;
+  max-height: 100%;
   background-image: linear-gradient(141deg, #dfd8d9 0%, whitesmoke 71%, white 100%);
 }
 .content {
   padding:10px;
   height: 100%;
-  width: 100%;
+  width: 83%;
   margin-left: 200px;
   background-image: linear-gradient(141deg, #dfd8d9 0%, whitesmoke 71%, white 100%);
 }
@@ -23,7 +29,7 @@ a {
   overflow-x: scroll;
   overflow-y: scroll;
   height: 80%;
-  width: 80%;
+  width: 85%;
   margin-left: 160px;
 }
 
@@ -31,13 +37,15 @@ a {
 .headerBar {
   overflow: hidden;
   position: relative;
+  width: 100%;
   height: 100px;
   background-color: #ffffff;
 }
 .headerTitle {
+  float: left;
   height: 90%;
-  width: 100%;
-  margin-left: 320px;
+  width: 60%;
+  margin-left: 20px;
   padding-top: 10px;
   background-color: #ffffff;
 }
@@ -50,14 +58,10 @@ a {
   font-weight: bold;
   border-left: solid #0a71ab;
 }
-.headerIcon {
-  float: left;
-  height: 100%;
-  top: 0;
-}
 .imgDiv {
-  max-width: 100%;
-  max-height: 100%;
+  float: left;
+  width: 300px;
+  height: 100px;
 }
 
 /* Sidebar */
@@ -117,7 +121,7 @@ a {
   text-align: center;
   white-space: nowrap;
   border-width: 0;
-  color: white;
+  color : white;
 }
 
 .button.download {
@@ -126,6 +130,21 @@ a {
 
 .button.update {
   background-color: #128BDE;
+}
+
+.button.logout {
+  float: right;
+  margin: 40px 10px 0px 0 ;
+  background-color: white;
+  color: #7a7a7a;
+  border: 1px solid #7a7a7a;
+}
+
+.button.logout:hover {
+  float: right;
+  background-color: white;
+  color: black;
+  border: 1px solid black;
 }
 
 .infield {
@@ -139,6 +158,10 @@ a {
 .cellNumber {
   font-family: monospace;
   text-align: right;
+}
+
+.cellText {
+  font-family: "Segoe UI",Arial,sans-serif;
 }
 
 .headTable {

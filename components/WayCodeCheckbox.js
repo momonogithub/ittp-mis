@@ -20,7 +20,7 @@ class WayCodeCheckbox extends Component {
             onChange={this.props.switchWayCodeStatus}
             checked={wayCodes[item].status}
           />
-          {item}
+          <label key={`${item}Label`}>{item}</label>
         </div>
       )
     }

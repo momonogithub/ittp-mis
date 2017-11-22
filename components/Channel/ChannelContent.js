@@ -31,7 +31,7 @@ export const combineData = (channel, wayCodes, date) => {
     for(let code in wayCodes) {
       const subChannel = month[count][code]
       const value = subChannel === undefined? 
-      'N/A' : `${subChannel.Approved} : ${subChannel.Application} ${subChannel.Percent}`
+      'N/A' : `${subChannel.Approved} : ${subChannel.Application} ${subChannel.Percent}%`
       if(code[0] === 'B' || code === 'HQ') {  // By Branch
         if(branch[code] === undefined) {
           branch[code] = [code]
@@ -94,7 +94,9 @@ class ChannelContent extends Component {
         result.push(
           <tbody key={`${data[row]}body`}>
             <tr key={`${data[row][0]}row`} className='spanRow'>
-              <td key={`${data[row][0]}span`} colSpan='14'>{`${data[row][0]} ${name}`}</td>
+              <td key={`${data[row][0]}span`} colSpan='14'>
+                <label key={`${data[row][0]}Label`}>{`${data[row][0]} ${name}`}</label>
+              </td>
             </tr>
             <tr key={`ChannelRow ${row}`}>{this.createCol(`${data[row][0]}`, data[row])}</tr>
           </tbody>
@@ -108,7 +110,7 @@ class ChannelContent extends Component {
     const result = []
     for(let col = 0 ; col < dataRow.length ; col += 1) {
       if(col === 0) {
-        result.push(<td key={`${key}${col}`} >{'App : Approved'}</td>)
+        result.push(<td className='cellText' key={`${key}${col}`} >{'App : Approved'}</td>)
       } else {
         result.push(
           <td key={`${key}${col}`} className={'cellNumber'}>{commaNumber(dataRow[col])}</td>
@@ -126,7 +128,9 @@ class ChannelContent extends Component {
         <tbody>
           <tr className='spanRow'>
             <td className='headTable' colSpan='14'>
-              Acquistion as {fullMonth[this.props.month - 1]} {this.props.year}
+              <label>
+                Acquistion as {fullMonth[this.props.month - 1]} {this.props.year}
+              </label>
             </td>
           </tr>
           <tr>

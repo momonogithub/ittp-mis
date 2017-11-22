@@ -1,7 +1,7 @@
 import Head from 'next/head'
 import { connect } from 'react-redux'
 import { Component } from 'react'
-import { switchDemoStatus } from '../reduxModules/demographic' 
+import { switchDemoStatus } from '../../reduxModules/demographic' 
 
 class DemoCheckbox extends Component {
   constructor(props) {
@@ -20,7 +20,7 @@ class DemoCheckbox extends Component {
             onChange={this.props.switchDemoStatus}
             checked={demoList[item].status}
           />
-          {item}
+          <label key={`${item}Label`}>{item}</label>
         </div>
       )
     }

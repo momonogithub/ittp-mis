@@ -21,12 +21,15 @@ export const combineData = (dataObj, year, month) => {
   const result = [columnHead]
   const data = values(dataObj)
   for(let month = data.length - 1 ; month >= 0 ; month -= 1 ) {
-    const arr = [date[12-month], data[month].osbTotal, data[month].osb, data[month].osbPercent]
+    const osbPercent = data[month].osbPercent === null? 
+      'N/A' : `${data[month].osbPercent}%`
+    const arr = [date[12-month], data[month].osbTotal, data[month].osb, osbPercent]
     const bucket = data[month].bucket
     const percentBucket = data[month].percentBucket
     for(let b = 0 ; b < bucket.length ; b += 1 ) {
+      const percent = percentBucket[b] === null? 'N/A' : `${percentBucket[b]}%`
       arr.push(bucket[b])
-      arr.push(percentBucket[b])
+      arr.push(percent)
     }
     result.push(arr)
   }
@@ -54,7 +57,11 @@ class NetflowContent extends Component {
   createCol = (key, dataRow) => {
     const result = []
     for(let col = 0 ; col < dataRow.length ; col += 1) {
-      result.push(<td key={`${key}${col}`} className={col === 0 ? null: 'cellNumber'}>{commaNumber(dataRow[col])}</td>)
+      result.push(
+        <td key={`${key}${col}`} className={col === 0 ? 'cellText': 'cellNumber'}>
+          {commaNumber(dataRow[col])}
+        </td>
+      )
     }
     return result
   }
@@ -66,7 +73,9 @@ class NetflowContent extends Component {
         <tbody>
           <tr className='spanRow'>
             <td className='headTable' colSpan={`${columnHead.length}`}>
-              Risk: Netflow as {fullMonth[this.props.month - 1]} {this.props.year}
+              <label>
+                Risk: Netflow as {fullMonth[this.props.month - 1]} {this.props.year}
+              </label>
             </td>
           </tr>
           {this.createRow(combineData(this.props.data, this.props.year, this.props.month))}

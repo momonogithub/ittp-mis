@@ -1,7 +1,7 @@
 import { Component } from 'react'
 import DateBar from '../DateBar'
 import Head from 'next/head'
-import DemoCheckbox from '../DemoCheckbox'
+import DemoCheckbox from './DemoCheckbox'
 import { combineData } from './DemoContent'
 import { CSVLink } from 'react-csv'
 import { connect } from 'react-redux'

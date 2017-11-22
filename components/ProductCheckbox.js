@@ -20,7 +20,7 @@ class ProductCheckbox extends Component {
             onChange={this.props.switchProductStatus}
             checked={products[item].status}
           />
-          {products[item].name}
+          <label key={`${products[item].name}Label`}>{products[item].name}</label>
         </div>
       )
     }

@@ -51,7 +51,19 @@ export const combineData = (dataObj, products) => {
           if(col < 1) {
             arr.push(rowHead[row - 1])
           } else {
-            arr.push(commaNumber(data[col - 1][row - 1]))
+            if(data[col - 1][row - 1] !== 'No Data') {
+              if(data[col - 1][row - 1] === null) {
+                arr.push('N/A')
+              } else if(row > 15) {
+                arr.push(`${commaNumber(data[col - 1][row - 1])}%`)
+              }
+              else {
+                arr.push(commaNumber(data[col - 1][row - 1]))
+              }
+            } else {
+              arr.push(commaNumber(data[col - 1][row - 1]))
+            }
+            
           }
         }
       }
@@ -83,7 +95,11 @@ class PortSummary extends Component {
       colStatus.push(this.props.product[item].status)
     }
     for(let row = 1 ; row < data.length ; row += 1) {
-      result.push(<tr key={`PortSumRow ${row}`}>{this.createCol(`${data[row][0]}`, data[row], colStatus)}</tr>)
+      result.push(
+        <tr key={`PortSumRow ${row}`}>
+          {this.createCol(`${data[row][0]}`, data[row], colStatus)}
+        </tr>
+      )
     }
     return result
   }
@@ -93,7 +109,7 @@ class PortSummary extends Component {
     for(let col = 0 ; col < dataRow.length ; col += 1) {
       if(col < 2 ||  colStatus[col - 2] === true) {
         result.push(
-          <td key={`${key}${col}`} className={col === 0 ? null: 'cellNumber'}>{dataRow[col]}</td>
+          <td key={`${key}${col}`} className={col === 0 ? 'cellText': 'cellNumber'}>{dataRow[col]}</td>
         )
       }
     }
@@ -108,7 +124,9 @@ class PortSummary extends Component {
         <tbody>
           <tr className='spanRow'>
             <td className='headTable' colSpan={`${products.length+1}`}>
-              Portfolio : Summary Page as {fullMonth[this.props.month - 1]} {this.props.year}
+              <label>
+                Portfolio : Summary Page as {fullMonth[this.props.month - 1]} {this.props.year}
+              </label>
             </td>
           </tr>
           <tr>

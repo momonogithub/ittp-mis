@@ -7,6 +7,7 @@ import { fetchDemographic, fetchDemoList, switchDemoStatus } from '../reduxModul
 import withRedux from 'next-redux-wrapper'
 import DemoContent from '../components/Demographic/DemoContent'
 import DemoBar from '../components/Demographic/DemoBar'
+import { isEqual } from 'lodash'
 
 class Demographic extends Component {
   constructor(props) {

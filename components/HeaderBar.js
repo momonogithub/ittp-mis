@@ -1,13 +1,27 @@
-import Icon from '../components/Icon'
-import Title from '../components/Title'
 import Head from 'next/head'
+import { Component } from 'react'
 
-const HeaderBar = ({title}) => (
-  <div className='headerBar'>
-    <Head><link href='/static/style.css' rel='stylesheet'/></Head>
-    <Icon/>
-    <Title title={title}/>
-  </div>
-)
+class HeaderBar extends Component {
+  constructor(props) {
+    super(props)
+  }
+  
+  render() {
+    return (
+      <div className='headerBar'>
+        <Head><link href='/static/style.css' rel='stylesheet'/></Head>
+        <img className='imgDiv' src='/static/ittp-icon.jpg'/>
+        <div className='headerTitle'>
+            <div className='titleStyle'>
+                <label>{this.props.title}</label>
+            </div>
+          </div>
+        <button className='button logout'>
+          <label>Logout</label>
+        </button>
+      </div>
+    )
+  }
+}
 
 export default HeaderBar

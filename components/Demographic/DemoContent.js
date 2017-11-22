@@ -31,13 +31,24 @@ export const combineData = (data) => {
         data[demo][group].averageInt,
         data[demo][group].averageLoanTerm,
         data[demo][group].osb,
-        data[demo][group].delinquentRate,
-        data[demo][group].nplRate,
+        checkValue(data[demo][group].delinquentRate),
+        checkValue(data[demo][group].nplRate),
       )
       result.push(subRow)
     }   
   }
   return result
+}
+
+const checkValue = value => {
+  switch(value) {
+    case 'No Data':
+      return value
+    case null:
+      return 'N/A'
+    default :
+      return `${value}%`
+  }
 }
 
 class DemoContent extends Component {
@@ -54,7 +65,9 @@ class DemoContent extends Component {
         if(this.props.demoList[`${subRow}`].status) {
           result.push(
             <tr key={`${data[row][0]}row`} className='spanRow'>
-              <td key={`${data[row][0]}span`} colSpan={`${rowHead.length + 1}`}>{`${data[row][0]}`}</td>
+              <td className='cellText' key={`${data[row][0]}span`} colSpan={`${rowHead.length + 1}`}>
+                {`${data[row][0]}`}
+              </td>
             </tr>
           )
         }
@@ -75,7 +88,11 @@ class DemoContent extends Component {
   createCol = (key, dataRow) => {
     const result = []
     for(let col = 0 ; col < dataRow.length ; col += 1) {
-      result.push(<td key={`${key}${col}`} className={col === 0 ? null: 'cellNumber'}>{commaNumber(dataRow[col])}</td>)
+      result.push(
+        <td key={`${key}${col}`} className={col === 0 ? 'cellText': 'cellNumber'}>
+          {commaNumber(dataRow[col])}
+        </td>
+      )
     }
     return result
   }
@@ -87,7 +104,9 @@ class DemoContent extends Component {
         <tbody>
           <tr className='spanRow'>
             <td className='headTable' colSpan={`${rowHead.length + 1}`}>
-              Demographic: Total Account Profile as {fullMonth[this.props.month - 1]} {this.props.year}
+              <label>
+                Demographic: Total Account Profile as {fullMonth[this.props.month - 1]} {this.props.year}
+              </label>
             </td>
           </tr>
           <tr>

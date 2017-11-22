@@ -1,22 +1,40 @@
 import Link from 'next/link'
 import Head from 'next/head'
+import { Component } from 'react'
 
-const Sidebar = ({ pathname }) => (
-  <div className='sidebar'>
-    <Head><link href='/static/style.css' rel='stylesheet'/></Head>
-    <Link as='/' href="/?page=summary">
-      <div className={pathname==='/' || pathname==='/index'? 'sideItem is-active': 'sideItem' }>Portfolio</div>
-    </Link>
-    <Link href="/channel">
-      <div className={pathname==='/channel'? 'sideItem is-active': 'sideItem' }>Channel</div>
-    </Link>
-    <Link href="/demographic">
-    <div className={pathname==='/demographic'? 'sideItem is-active': 'sideItem' }>Demographic</div>
-    </Link>
-    <Link href="/netflow">
-    <div className={pathname==='/netflow'? 'sideItem is-active': 'sideItem' }>Netflow</div>
-    </Link>
-  </div>
-)
+class Sidebar extends Component {
+  constructor(props) {
+    super(props)
+  }
+  
+  render() {
+    const path = this.props.pathname
+    return(
+      <div className='sidebar'>
+        <Head><link href='/static/style.css' rel='stylesheet'/></Head>
+        <Link as='/' href="/?page=summary">
+          <div className={path ==='/' || path ==='/index'? 'sideItem is-active': 'sideItem' }>
+            <label>Portfolio</label>
+          </div>
+        </Link>
+        <Link href="/channel">
+          <div className={path ==='/channel'? 'sideItem is-active': 'sideItem' }>
+            <label>Channel</label>
+          </div>
+        </Link>
+        <Link href="/demographic">
+          <div className={path ==='/demographic'? 'sideItem is-active': 'sideItem' }>
+            <label>Demographic</label>
+          </div>
+        </Link>
+        <Link href="/netflow">
+          <div className={path ==='/netflow'? 'sideItem is-active': 'sideItem' }>
+            <label>Netflow</label>
+          </div>
+        </Link>
+      </div>
+    )
+  }
+}
 
 export default Sidebar
