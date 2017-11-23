@@ -33,6 +33,11 @@ label {
   margin-left: 160px;
 }
 
+.loaderDiv {
+  height: 100%;
+  width: 100%;
+}
+
 /* Header */
 .headerBar {
   overflow: hidden;

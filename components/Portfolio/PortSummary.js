@@ -140,11 +140,11 @@ class PortSummary extends Component {
   }
 }
 
-const mapStateToProps = (state) => ({ 
+const mapStateToProps = (state) => ({
   month: state.date.month,
-  year: state.date.year,
   portSummary: state.portfolio.portSummary,
   product: state.product,
+  year: state.date.year,
 })
 
 export default connect(mapStateToProps, null)(PortSummary)

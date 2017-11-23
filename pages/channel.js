@@ -4,10 +4,12 @@ import { configureStore } from '../store'
 import { bindActionCreators } from 'redux'
 import { setMonth, setYear } from '../reduxModules/date'
 import { fetchChannel, fetchUpdateChannel } from '../reduxModules/channel'
+import { switchLoadingStatus } from '../reduxModules/loading'
 import { fetchWayCode, switchWayCodeStatus } from '../reduxModules/wayCode'
 import withRedux from 'next-redux-wrapper'
 import ChannelContent from '../components/Channel/ChannelContent'
 import ChannelBar from '../components/Channel/ChannelBar'
+import Spinner from '../components/Spinner'
 import { isEqual } from 'lodash'
 
 class Channel extends Component {
@@ -29,7 +31,7 @@ class Channel extends Component {
   render() {
     return(
       <Wrapper 
-        Content={ChannelContent} 
+        Content={this.props.loading === false? ChannelContent : Spinner} 
         SideContent={ChannelBar} 
         title='Channel'
         pathname={this.props.url.pathname}
@@ -38,7 +40,8 @@ class Channel extends Component {
   }
 }
 
-const mapStateToProps = (state) => ({ 
+const mapStateToProps = (state) => ({
+  loading: state.loading.status, 
   date: state.date
 })
 
@@ -48,7 +51,8 @@ const mapDispatchToProps = (dispatch) => {
     setYear: bindActionCreators(setYear, dispatch),
     fetchChannel: bindActionCreators(fetchChannel, dispatch),
     fetchUpdateChannel: bindActionCreators(fetchUpdateChannel, dispatch),
-    fetchWayCode: bindActionCreators(fetchWayCode, dispatch)
+    fetchWayCode: bindActionCreators(fetchWayCode, dispatch),
+    switchLoadingStatus: bindActionCreators(switchLoadingStatus, dispatch)
   }
 }
 

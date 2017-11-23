@@ -7,6 +7,7 @@ import { combineData } from './PortSummary'
 import { connect } from 'react-redux'
 import { CSVLink } from 'react-csv'
 import { fetchUpdatePortSummary } from '../../reduxModules/portfolio'
+import { switchLoadingStatus } from '../../reduxModules/loading'
 
 class PortSummaryBar extends Component {
   constructor(props) {
@@ -23,6 +24,7 @@ class PortSummaryBar extends Component {
 
   handleClick = () => {
     this.props.fetchUpdatePortSummary(this.props.date)
+    this.props.switchLoadingStatus()
   }
 
   render() {
@@ -64,4 +66,4 @@ const mapStateToProps = (state) => ({
   data: state.portfolio.portSummary
 })
 
-export default connect(mapStateToProps, { fetchUpdatePortSummary })(PortSummaryBar)
+export default connect(mapStateToProps, { fetchUpdatePortSummary, switchLoadingStatus })(PortSummaryBar)

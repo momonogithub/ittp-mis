@@ -4,9 +4,11 @@ import { configureStore } from '../store'
 import { bindActionCreators } from 'redux'
 import withRedux from 'next-redux-wrapper'
 import { setMonth, setYear } from '../reduxModules/date'
+import { switchLoadingStatus } from '../reduxModules/loading'
 import { fetchNetflow, fetchUpdateNetflow } from '../reduxModules/netflow'
 import NetflowContent from '../components/Netflow/NetflowContent'
 import NetflowBar from '../components/Netflow/NetflowBar'
+import Spinner from '../components/Spinner'
 import { isEqual } from 'lodash'
 
 class Netflow extends Component {
@@ -27,7 +29,7 @@ class Netflow extends Component {
   render() {
     return (
       <Wrapper 
-        Content={NetflowContent} 
+        Content={this.props.loading === false ? NetflowContent : Spinner} 
         SideContent={NetflowBar} 
         title='Risk : Netflow'
         pathname={this.props.url.pathname}
@@ -36,7 +38,8 @@ class Netflow extends Component {
   }
 }
 
-const mapStateToProps = (state) => ({ 
+const mapStateToProps = (state) => ({
+  loading: state.loading.status,
   date: state.date
 })
 
@@ -45,7 +48,8 @@ const mapDispatchToProps = (dispatch) => {
     setMonth: bindActionCreators(setMonth, dispatch),
     setYear: bindActionCreators(setYear, dispatch),
     fetchNetflow: bindActionCreators(fetchNetflow, dispatch),
-    fetchUpdateNetflow: bindActionCreators(fetchUpdateNetflow, dispatch)
+    fetchUpdateNetflow: bindActionCreators(fetchUpdateNetflow, dispatch),
+    switchLoadingStatus: bindActionCreators(switchLoadingStatus, dispatch),
   }
 }
 

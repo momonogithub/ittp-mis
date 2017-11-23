@@ -1,8 +1,14 @@
 import { Component } from 'react'
 import Wrapper from '../components/Wrapper'
+import Spinner from '../components/Spinner'
 import { configureStore } from '../store'
 import { setMonth, setYear } from '../reduxModules/date'
-import { fetchPortTotal, fetchUpdatePortTotal, fetchPortSummary, fetchUpdatePortSummary } from '../reduxModules/portfolio'
+import { 
+  fetchPortTotal, 
+  fetchUpdatePortTotal, 
+  fetchPortSummary, 
+  fetchUpdatePortSummary } from '../reduxModules/portfolio'
+import { switchLoadingStatus } from '../reduxModules/loading'
 import { fetchProductList, switchProductStatus } from '../reduxModules/product'
 import { bindActionCreators } from 'redux'
 import withRedux from 'next-redux-wrapper'
@@ -49,8 +55,8 @@ class Index extends Component {
     const Portfolio = this.changePage(this.props.url.query.page)
     return(
       <Wrapper 
-      Content={Portfolio.Content} 
-      SideContent={Portfolio.SideContent} 
+      Content={this.props.loading === false? Portfolio.Content : Spinner} 
+      SideContent={Portfolio.SideContent}
       title={Portfolio.title}
       pathname={this.props.url.pathname}
     />
@@ -58,7 +64,8 @@ class Index extends Component {
   }
 }
 
-const mapStateToProps = (state) => ({ 
+const mapStateToProps = (state) => ({
+  loading: state.loading.status,
   date: state.date
 })
 
@@ -71,6 +78,7 @@ const mapDispatchToProps = (dispatch) => {
     fetchPortTotal: bindActionCreators(fetchPortTotal, dispatch),
     fetchUpdatePortTotal: bindActionCreators(fetchUpdatePortTotal, dispatch),
     fetchProductList: bindActionCreators(fetchProductList, dispatch),
+    switchLoadingStatus: bindActionCreators(switchLoadingStatus, dispatch),
     switchProductStatus: bindActionCreators(switchProductStatus, dispatch)
   }
 }

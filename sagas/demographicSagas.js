@@ -2,9 +2,11 @@ import { put, call, takeLatest} from 'redux-saga/effects'
 import { 
   FETCH_DEMOGRAPHIC, 
   FETCH_DEMOGRAPHIC_SUCCESS,
+  FETCH_UPDATE_DEMOGRAPHIC,
   FETCH_DEMOLIST,
-  FETCH_DEMOLIST_SUCCESS } from '../reduxModules/demographic'
+  FETCH_DEMOLIST_SUCCESS} from '../reduxModules/demographic'
 import { API_SERVER, getJSON} from '../utilize/api'
+import { SWITCH_LOADING_STATUS } from '../reduxModules/loading'
  
 export function* fetchDemographic(action) {
   try {
@@ -15,6 +17,21 @@ export function* fetchDemographic(action) {
       type: FETCH_DEMOGRAPHIC_SUCCESS,
       payload: json
     })
+  } catch (error) {
+    throw error
+  }
+}
+
+export function* fetchUpdateDemographic(action) {
+  try {
+    const month = action.payload.month
+    const year = action.payload.year
+    const json = yield call(getJSON, `${API_SERVER}/demographic/updateDemographic/${month}/${year}`)
+    yield put({
+      type: FETCH_DEMOGRAPHIC_SUCCESS,
+      payload: json
+    })
+    yield put({type: SWITCH_LOADING_STATUS})
   } catch (error) {
     throw error
   }
@@ -34,5 +51,6 @@ export function* fetchDemoList() {
 
 export function* watchDemographicSaga() {
   yield takeLatest(FETCH_DEMOGRAPHIC, fetchDemographic)
+  yield takeLatest(FETCH_UPDATE_DEMOGRAPHIC, fetchUpdateDemographic)
   yield takeLatest(FETCH_DEMOLIST, fetchDemoList)
 }

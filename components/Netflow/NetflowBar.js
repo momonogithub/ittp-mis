@@ -5,6 +5,7 @@ import { CSVLink } from 'react-csv'
 import { combineData } from './NetflowContent'
 import { connect } from 'react-redux'
 import { fetchUpdateNetflow } from '../../reduxModules/netflow'
+import { switchLoadingStatus } from '../../reduxModules/loading'
 
 class NetflowBar extends Component {
   constructor(props) {
@@ -13,6 +14,7 @@ class NetflowBar extends Component {
 
   handleClick = () => {
     this.props.fetchUpdateNetflow(this.props.date)
+    this.props.switchLoadingStatus()
   }
   
   render() {
@@ -47,4 +49,4 @@ const mapStateToProps = (state) => ({
   data: state.netflow.riskNetflow
 })
 
-export default connect(mapStateToProps, { fetchUpdateNetflow })(NetflowBar)
+export default connect(mapStateToProps, { fetchUpdateNetflow, switchLoadingStatus })(NetflowBar)

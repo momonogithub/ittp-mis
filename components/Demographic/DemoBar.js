@@ -5,10 +5,17 @@ import DemoCheckbox from './DemoCheckbox'
 import { combineData } from './DemoContent'
 import { CSVLink } from 'react-csv'
 import { connect } from 'react-redux'
+import { fetchUpdateDemographic } from '../../reduxModules/demographic'
+import { switchLoadingStatus } from '../../reduxModules/loading'
 
 class DemographicBar extends Component {
   constructor(props) {
     super(props)
+  }
+
+  handleClick = () => {
+    this.props.fetchUpdateDemographic(this.props.date)
+    this.props.switchLoadingStatus()
   }
   
   render() {
@@ -27,6 +34,9 @@ class DemographicBar extends Component {
               <button className="button download">Download Excel</button>
             </CSVLink>
           </div>
+          <div className='barContent'>
+            <button className="button update" onClick={this.handleClick}>Update Data</button>
+          </div>
         </div>
         <div className='barContentList'>
           <DemoCheckbox/>
@@ -39,7 +49,8 @@ class DemographicBar extends Component {
 const mapStateToProps = (state) => ({
   month: state.date.month,
   year: state.date.year,
+  date: state.date,
   data: state.demographic.demographic
 })
 
-export default connect(mapStateToProps, null )(DemographicBar)
+export default connect(mapStateToProps, { fetchUpdateDemographic, switchLoadingStatus } )(DemographicBar)

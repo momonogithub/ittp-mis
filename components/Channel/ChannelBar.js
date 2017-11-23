@@ -7,6 +7,7 @@ import Head from 'next/head'
 import DateBar from '../DateBar'
 import WayCodeCheckBox from '../WayCodeCheckbox'
 import { fetchUpdateChannel } from '../../reduxModules/channel'
+import { switchLoadingStatus } from '../../reduxModules/loading'
 
 class ChannelBar extends Component {
   constructor(props) {
@@ -15,6 +16,7 @@ class ChannelBar extends Component {
   
   handleClick = () => {
     this.props.fetchUpdateChannel(this.props.date)
+    this.props.switchLoadingStatus()
   }
   
   render() {
@@ -57,4 +59,4 @@ const mapStateToProps = (state) => ({
   wayCodes: state.wayCode
 })
 
-export default connect(mapStateToProps, { fetchUpdateChannel })(ChannelBar)
+export default connect(mapStateToProps, { fetchUpdateChannel, switchLoadingStatus })(ChannelBar)

@@ -4,9 +4,11 @@ import { configureStore } from '../store'
 import { bindActionCreators } from 'redux'
 import { setMonth, setYear } from '../reduxModules/date'
 import { fetchDemographic, fetchDemoList, switchDemoStatus } from '../reduxModules/demographic'
+import { switchLoadingStatus } from '../reduxModules/loading'
 import withRedux from 'next-redux-wrapper'
 import DemoContent from '../components/Demographic/DemoContent'
 import DemoBar from '../components/Demographic/DemoBar'
+import Spinner from '../components/Spinner'
 import { isEqual } from 'lodash'
 
 class Demographic extends Component {
@@ -28,7 +30,7 @@ class Demographic extends Component {
   render() {
     return (
       <Wrapper 
-        Content={DemoContent} 
+        Content={this.props.loading === false? DemoContent: Spinner} 
         SideContent={DemoBar} 
         title='Demographic : Total Account Profile'
         pathname={this.props.url.pathname}
@@ -37,7 +39,8 @@ class Demographic extends Component {
   }
 }
 
-const mapStateToProps = (state) => ({ 
+const mapStateToProps = (state) => ({
+  loading: state.loading.status,
   date: state.date
 })
 
@@ -47,7 +50,8 @@ const mapDispatchToProps = (dispatch) => {
     setYear: bindActionCreators(setYear, dispatch),
     fetchDemographic: bindActionCreators(fetchDemographic, dispatch),
     fetchDemoList: bindActionCreators(fetchDemoList, dispatch),
-    switchDemoStatus: bindActionCreators(switchDemoStatus, dispatch)
+    switchDemoStatus: bindActionCreators(switchDemoStatus, dispatch),
+    switchLoadingStatus: bindActionCreators(switchLoadingStatus, dispatch)
   }
 }
 
