@@ -10,6 +10,7 @@ import NetflowContent from '../components/Netflow/NetflowContent'
 import NetflowBar from '../components/Netflow/NetflowBar'
 import Spinner from '../components/Spinner'
 import { isEqual } from 'lodash'
+import requireAuth from '../hoc/requireAuth'
 
 class Netflow extends Component {
   constructor(props) {
@@ -53,4 +54,4 @@ const mapDispatchToProps = (dispatch) => {
   }
 }
 
-export default withRedux(configureStore, mapStateToProps, mapDispatchToProps)(Netflow)
+export default withRedux(configureStore, mapStateToProps, mapDispatchToProps)(requireAuth(Netflow))

@@ -1,5 +1,8 @@
 import { put, call, takeLatest} from 'redux-saga/effects'
-import { FETCH_PRODUCTLIST, FETCH_PRODUCTLIST_SUCCESS } from '../reduxModules/product'
+import { 
+  FETCH_PRODUCTLIST,
+  FETCH_PRODUCTLIST_SUCCESS,
+  FETCH_PRODUCTLIST_FAILED } from '../reduxModules/product'
 import { API_SERVER, getJSON} from '../utilize/api'
  
 export function* fetchProductList() {
@@ -10,7 +13,9 @@ export function* fetchProductList() {
       payload: json
     })
   } catch (error) {
-    throw error
+    yield put({
+      type: FETCH_PRODUCTLIST_FAILED,
+    })
   }
 }
 

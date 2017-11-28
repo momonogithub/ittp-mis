@@ -30,6 +30,7 @@ class WayCodeCheckbox extends Component {
   render() {
     return (
       <form>
+        <label>ByWayCode:</label>
         <div className='inform'>
           {this.buildCheckbox(this.props.wayCodes)}
         </div>

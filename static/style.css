@@ -6,6 +6,10 @@ label {
   font-family: "Segoe UI",Arial,sans-serif;
 }
 
+.errorLabel {
+  color: red;
+}
+
 /* Wrapper */
 .wrapper {
   position: fixed;
@@ -14,8 +18,7 @@ label {
   bottom: 0;
   right: 0;
   overflow: auto;
-  max-width: 100%;
-  max-height: 100%;
+  height: 100%;
   background-image: linear-gradient(141deg, #dfd8d9 0%, whitesmoke 71%, white 100%);
 }
 .content {
@@ -36,6 +39,20 @@ label {
 .loaderDiv {
   height: 100%;
   width: 100%;
+}
+
+
+.loginDiv {
+  width: 300px;
+  height: 50%;
+  overflow: auto;
+  margin: auto;
+  position: absolute;
+  top: 0; left: 0; bottom: 0; right: 0;
+  background-color: white;
+  border-radius: 5px;
+  box-shadow: 0 2px 3px rgba(10, 10, 10, 0.1), 0 0 0 1px rgba(10, 10, 10, 0.1);
+  padding: 20px;
 }
 
 /* Header */
@@ -105,9 +122,11 @@ label {
 .barContentList {
   background-color: #ffffff;
   margin-bottom: 10px;
+  padding-left: 10px;
 }
 .barContent {
-  padding: 10px;
+  padding-top: 10px;
+  padding-bottom: 10px;
   background-color: #ffffff;
 }
 .button {
@@ -156,7 +175,7 @@ label {
   margin-top: 5px;
 }
 .inform {
-  margin-top: 10px;
+  margin: 10px 0 10px 0;
 }
 
 /* Table */

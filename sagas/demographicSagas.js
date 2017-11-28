@@ -2,9 +2,11 @@ import { put, call, takeLatest} from 'redux-saga/effects'
 import { 
   FETCH_DEMOGRAPHIC, 
   FETCH_DEMOGRAPHIC_SUCCESS,
+  FETCH_DEMOGRAPHIC_FAILED,
   FETCH_UPDATE_DEMOGRAPHIC,
   FETCH_DEMOLIST,
-  FETCH_DEMOLIST_SUCCESS} from '../reduxModules/demographic'
+  FETCH_DEMOLIST_SUCCESS,
+  FETCH_DEMOLIST_FAILED } from '../reduxModules/demographic'
 import { API_SERVER, getJSON} from '../utilize/api'
 import { SWITCH_LOADING_STATUS } from '../reduxModules/loading'
  
@@ -18,7 +20,9 @@ export function* fetchDemographic(action) {
       payload: json
     })
   } catch (error) {
-    throw error
+    yield put({
+      type: FETCH_DEMOGRAPHIC_FAILED,
+    })
   }
 }
 
@@ -33,7 +37,9 @@ export function* fetchUpdateDemographic(action) {
     })
     yield put({type: SWITCH_LOADING_STATUS})
   } catch (error) {
-    throw error
+    yield put({
+      type: FETCH_DEMOGRAPHIC_FAILED,
+    })
   }
 }
 
@@ -45,7 +51,9 @@ export function* fetchDemoList() {
       payload: json
     })
   } catch (error) {
-    throw error
+    yield put({
+      type: FETCH_DEMOLIST_FAILED,
+    })
   }
 }
 

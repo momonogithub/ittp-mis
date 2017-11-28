@@ -1,6 +1,7 @@
 export const FETCH_NETFLOW = 'ittp/FETCH_NETFLOW'
 export const FETCH_UPDATE_NETFLOW = 'ittp/FETCH_UPDATE_NETFLOW'
 export const FETCH_NETFLOW_SUCCESS = 'ittp/FETCH_NETFLOW_SUCCESS'
+export const FETCH_NETFLOW_FAILED = 'ittp/FETCH_NETFLOW_FAILED'
 
 export const fetchNetflow = date => ({
   type: FETCH_NETFLOW,

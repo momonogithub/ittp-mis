@@ -51,7 +51,6 @@ class PortSummaryBar extends Component {
         </div>
         <div className='barContentList'>
           <div className='barContent'>
-            <label>ByProduct:</label>
             <ProductCheckbox/>
           </div>
         </div>

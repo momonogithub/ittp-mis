@@ -1,5 +1,9 @@
 import { put, call, takeLatest} from 'redux-saga/effects'
-import { FETCH_NETFLOW, FETCH_NETFLOW_SUCCESS, FETCH_UPDATE_NETFLOW } from '../reduxModules/netflow'
+import { 
+  FETCH_NETFLOW,
+  FETCH_NETFLOW_SUCCESS,
+  FETCH_NETFLOW_FAILED,
+  FETCH_UPDATE_NETFLOW } from '../reduxModules/netflow'
 import { API_SERVER, getJSON} from '../utilize/api'
 import { SWITCH_LOADING_STATUS } from '../reduxModules/loading'
  
@@ -13,7 +17,9 @@ export function* fetchNetflow(action) {
       payload: json
     })
   } catch (error) {
-    throw error
+    yield put({
+      type: FETCH_NETFLOW_FAILED,
+    })
   }
 }
 
@@ -28,7 +34,9 @@ export function* fetchUpdateNetflow(action) {
     })
     yield put({type: SWITCH_LOADING_STATUS})
   } catch (error) {
-    throw error
+    yield put({
+      type: FETCH_NETFLOW_FAILED,
+    })
   }
 }
 

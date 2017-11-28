@@ -1,5 +1,9 @@
 import { put, call, takeLatest} from 'redux-saga/effects'
-import { FETCH_CHANNEL, FETCH_CHANNEL_SUCCESS, FETCH_UPDATE_CHANNEL } from '../reduxModules/channel'
+import { 
+  FETCH_CHANNEL,
+  FETCH_CHANNEL_SUCCESS,
+  FETCH_CHANNEL_FAILED,
+  FETCH_UPDATE_CHANNEL } from '../reduxModules/channel'
 import { API_SERVER, getJSON} from '../utilize/api'
 import { SWITCH_LOADING_STATUS } from '../reduxModules/loading'
  
@@ -13,7 +17,9 @@ export function* fetchChannel(action) {
       payload: json
     })
   } catch (error) {
-    throw error
+    yield put({
+      type: FETCH_CHANNEL_FAILED,
+    })
   }
 }
 
@@ -28,7 +34,9 @@ export function* fetchUpdateChannel(action) {
     })
     yield put({type: SWITCH_LOADING_STATUS})
   } catch (error) {
-    throw error
+    yield put({
+      type: FETCH_CHANNEL_FAILED,
+    })
   }
 }
 

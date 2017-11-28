@@ -1,20 +1,34 @@
 import fetch from 'isomorphic-unfetch'
 
-const API_SERVER = 'http://localhost:3000'
+export const API_SERVER = 'http://localhost:3000'
 
-const getJSON = url => fetch(url, {
+export const getJSON = url => fetch(url, {
   method: 'GET',
   headers: {
-    Accept: 'application/JSON',
+    Accept: 'application/json',
     'Content-type': 'application/json',
   },
 })
-  .then(respone => respone.json())
-  .then(json => {
-    if(json.error) {
+  .then(response => response.json())
+  .then((json) => {
+    if (json.error) {
       throw Error(json.error.message)
     }
     return json
   })
 
-export { API_SERVER, getJSON}
+export const postJSON = (url, jsonBody) => fetch(url, {
+  method: 'POST',
+  headers: {
+    Accept: 'application/json',
+    'Content-type': 'application/json',
+  },
+  body: JSON.stringify(jsonBody),
+})
+  .then(response => response.json())
+  .then((json) => {
+    if (json.error) {
+      throw Error(json.error.message)
+    }
+    return json
+  })

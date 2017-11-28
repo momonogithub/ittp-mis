@@ -1,5 +1,6 @@
 export const FETCH_PRODUCTLIST = 'ittp/FETCH_PRODUCTLIST'
 export const FETCH_PRODUCTLIST_SUCCESS = 'ittp/FETCH_PRODUCTLIST_SUCCESS'
+export const FETCH_PRODUCTLIST_FAILED = 'ittp/FETCH_PRODUCTLIST_FAILED'
 export const SWITCH_PRODUCT_STATUS = 'ittp/SWITCH_PRODUCT_STATUS'
 
 export const fetchProductList = () => ({

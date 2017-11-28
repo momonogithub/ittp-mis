@@ -30,6 +30,7 @@ class ProductCheckbox extends Component {
   render() {
     return (
       <form>
+        <label>ByProduct:</label>
         <div className='inform'>
           {this.buildCheckbox(this.props.products)}
         </div>

@@ -11,6 +11,7 @@ import ChannelContent from '../components/Channel/ChannelContent'
 import ChannelBar from '../components/Channel/ChannelBar'
 import Spinner from '../components/Spinner'
 import { isEqual } from 'lodash'
+import requireAuth from '../hoc/requireAuth'
 
 class Channel extends Component {
   constructor(props) {
@@ -56,4 +57,4 @@ const mapDispatchToProps = (dispatch) => {
   }
 }
 
-export default withRedux(configureStore, mapStateToProps, mapDispatchToProps)(Channel)
+export default withRedux(configureStore, mapStateToProps, mapDispatchToProps)(requireAuth(Channel))

@@ -16,7 +16,7 @@ export const setYear = year => ({
   payload: year.target.value,
 })
 
-const dateReducer = (state = initialState, action) => {
+const reducer = (state = initialState, action) => {
   switch (action.type) {
     case SET_MONTH: {
       return {
@@ -35,4 +35,4 @@ const dateReducer = (state = initialState, action) => {
   }
 } 
 
-export default dateReducer
+export default reducer

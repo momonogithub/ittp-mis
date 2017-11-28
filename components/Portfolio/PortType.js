@@ -8,7 +8,7 @@ class PortType extends Component {
   }
 
   changePage = (event) => Router.push({
-    pathname: '/index',
+    pathname: '/portfolio',
     query: { page: `${event.target.value}` }
   })
   

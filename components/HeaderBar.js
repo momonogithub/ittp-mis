@@ -1,11 +1,20 @@
 import Head from 'next/head'
+import Router from 'next/router'
 import { Component } from 'react'
+import { connect } from 'react-redux'
+import { logout } from '../reduxModules/auth'
 
 class HeaderBar extends Component {
   constructor(props) {
     super(props)
   }
   
+  handleClick = event => {
+    console.log('logout')
+    this.props.logout()
+    Router.push({ pathname: '/' })
+  }
+
   render() {
     return (
       <div className='headerBar'>
@@ -16,12 +25,10 @@ class HeaderBar extends Component {
                 <label>{this.props.title}</label>
             </div>
           </div>
-        <button className='button logout'>
-          <label>Logout</label>
-        </button>
+        <button className='button logout' onClick={this.handleClick}>Logout</button>
       </div>
     )
   }
 }
 
-export default HeaderBar
+export default connect(null, { logout })(HeaderBar)

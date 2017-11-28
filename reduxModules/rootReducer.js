@@ -1,5 +1,6 @@
 import { combineReducers } from 'redux'
 import { reducer as formReducer } from 'redux-form'
+import authReducer from './auth'
 import channelReducer from './channel'
 import dateReducer from './date'
 import demographicReducer from './demographic'
@@ -10,6 +11,7 @@ import portfolioReducer from './portfolio'
 import wayCodeReducer from './wayCode'
 
 const reducers = {
+  authentication: authReducer,
   channel: channelReducer,
   date: dateReducer,
   demographic: demographicReducer,

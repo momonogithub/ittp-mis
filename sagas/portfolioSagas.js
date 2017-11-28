@@ -3,9 +3,11 @@ import { API_SERVER, getJSON} from '../utilize/api'
 import { 
   FETCH_PORTTOTAL,
   FETCH_PORTTOTAL_SUCCESS,
+  FETCH_PORTTOTAL_FAILED,
   FETCH_UPDATE_PORTTOTAL,
   FETCH_PORTSUMMARY,
   FETCH_PORTSUMMARY_SUCCESS,
+  FETCH_PORTSUMMARY_FAILED,
   FETCH_UPDATE_PORTSUMMARY,
 } from '../reduxModules/portfolio'
 import { SWITCH_LOADING_STATUS } from '../reduxModules/loading'
@@ -20,7 +22,9 @@ export function* fetchPortSummary(action) {
       payload: json
     })
   } catch (error) {
-    throw error
+    yield put({
+      type: FETCH_PORTSUMMARY_FAILED,
+    })
   }
 }
 
@@ -34,7 +38,9 @@ export function* fetchPortTotal(action) {
       payload: json
     })
   } catch (error) {
-    throw error
+    yield put({
+      type: FETCH_PORTTOTAL_FAILED,
+    })
   }
 }
 
@@ -53,7 +59,9 @@ export function* fetchUpdatePortSummary(action) {
     })
     yield put({type: SWITCH_LOADING_STATUS})
   } catch (error) {
-    throw error
+    yield put({
+      type: FETCH_PORTSUMMARY_FAILED,
+    })
   }
 }
 
@@ -68,7 +76,9 @@ export function* fetchUpdatePortTotal(action) {
     })
     yield put({type: SWITCH_LOADING_STATUS})
   } catch (error) {
-    throw error
+    yield put({
+      type: FETCH_PORTTOTAL_FAILED,
+    })
   }
 }
 

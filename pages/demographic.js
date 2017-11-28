@@ -10,6 +10,7 @@ import DemoContent from '../components/Demographic/DemoContent'
 import DemoBar from '../components/Demographic/DemoBar'
 import Spinner from '../components/Spinner'
 import { isEqual } from 'lodash'
+import requireAuth from '../hoc/requireAuth'
 
 class Demographic extends Component {
   constructor(props) {
@@ -55,4 +56,4 @@ const mapDispatchToProps = (dispatch) => {
   }
 }
 
-export default withRedux(configureStore, mapStateToProps, mapDispatchToProps)(Demographic)
+export default withRedux(configureStore, mapStateToProps, mapDispatchToProps)(requireAuth(Demographic))

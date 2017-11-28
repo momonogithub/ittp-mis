@@ -1,5 +1,6 @@
 export const FETCH_WAYCODE = 'ittp/FETCH_WAYCODE'
 export const FETCH_WAYCODE_SUCCESS = 'ittp/FETCH_WAYCODE_SUCCESS'
+export const FETCH_WAYCODE_FAILED = 'ittp/FETCH_WAYCODE_FAILED'
 export const SWITCH_WAYCODE_STATUS = 'ittp/SWITCH_WAYCODE_STATUS'
 
 export const fetchWayCode = () => ({

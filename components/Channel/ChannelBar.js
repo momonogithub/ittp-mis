@@ -42,7 +42,6 @@ class ChannelBar extends Component {
         </div>
         <div className='barContentList'>
           <div className='barContent'>
-            <label>ByWayCode:</label>
             <WayCodeCheckBox/>
           </div>
         </div>

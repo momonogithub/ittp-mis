@@ -12,8 +12,8 @@ class Sidebar extends Component {
     return(
       <div className='sidebar'>
         <Head><link href='/static/style.css' rel='stylesheet'/></Head>
-        <Link as='/' href="/?page=summary">
-          <div className={path ==='/' || path ==='/index'? 'sideItem is-active': 'sideItem' }>
+        <Link as='/portfolio' href="/portfolio?page=summary">
+          <div className={path ==='/portfolio'? 'sideItem is-active': 'sideItem' }>
             <label>Portfolio</label>
           </div>
         </Link>
