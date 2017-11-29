@@ -5,9 +5,7 @@ export const LOGIN_SUCCESS = 'ittp/LOGIN_SUCCESS'
 export const LOGIN_FAILED = 'ittp/LOGIN_FAILED'
 export const LOGOUT = 'ittp/LOGOUT'
 
-const initialState = {
-  msg: ''
-}
+const initialState = {}
 
 export const logout = () => ({
   type: LOGOUT
@@ -37,14 +35,12 @@ const reducer = (state = initialState, action) => {
         msg: action.payload
       }
     }
-    case LOGOUT: 
+    case LOGOUT: {
       const cookies = new Cookies()
       cookies.remove('accessToken')
-      return {
-        ...state,
-        accessToken: undefined
-      }
+      return {}
       break
+    }
     default:
       return state
   }

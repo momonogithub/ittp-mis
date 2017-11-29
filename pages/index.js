@@ -33,7 +33,7 @@ class Index extends Component {
   }
 
   displayError = message => {
-    if(message !== '') {
+    if(message !== undefined) {
       return `*${message}`
     } else {
       return message
@@ -51,7 +51,7 @@ class Index extends Component {
       <div className='wrapper'>
       <Head><link href='/static/style.css' rel='stylesheet'/></Head>
         <div className='loginDiv'>
-          <h4>ITTP MIS Login</h4>
+          <label className='loginLabel'>ITTP MIS Login</label>
           <form onSubmit={this.handleSubmit}>
             <div className='inform'>
               <h4>Username</h4>

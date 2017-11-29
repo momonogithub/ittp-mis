@@ -6,6 +6,11 @@ label {
   font-family: "Segoe UI",Arial,sans-serif;
 }
 
+.loginLabel {
+  font-weight: 300;
+  font-size: 28px;
+}
+
 .errorLabel {
   color: red;
 }
@@ -98,6 +103,7 @@ label {
   color: #363636;
   font-size: 20px;
   font-weight: bold;
+  font-family: "Segoe UI",Arial,sans-serif;
   padding-top: 15px;
   padding-bottom: 15px;
   padding-left: 12px;

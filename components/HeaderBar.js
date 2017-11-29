@@ -10,7 +10,6 @@ class HeaderBar extends Component {
   }
   
   handleClick = event => {
-    console.log('logout')
     this.props.logout()
     Router.push({ pathname: '/' })
   }
