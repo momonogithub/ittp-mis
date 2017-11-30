@@ -20,7 +20,7 @@ class DemographicBar extends Component {
   
   render() {
     return (
-      <div>
+      <div className='sideBarContent'>
         <Head><link href='/static/style.css' rel='stylesheet'/></Head>
         <div className='barContentList'>
           <div className='barContent'>

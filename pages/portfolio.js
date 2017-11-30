@@ -14,7 +14,8 @@ import { bindActionCreators } from 'redux'
 import withRedux from 'next-redux-wrapper'
 import PortSummary from '../components/Portfolio/PortSummary'
 import PortSummaryBar from '../components/Portfolio/PortSummaryBar'
-import PortTotal from '../components/Portfolio/PortTotal'
+import PortTotalChart from '../components/Portfolio/PortTotalChart'
+import PortTotalTable from '../components/Portfolio/PortTotalTable'
 import PortTotalBar from '../components/Portfolio/PortTotalBar'
 import { isEqual } from 'lodash'
 import requireAuth from '../hoc/requireAuth'
@@ -37,15 +38,16 @@ class Portfolio extends Component {
     }
   }
 
-  changePage = (page) => {
+  changePage = (query) => {
     const arr = {}
-    if (page === 'total') {
-      arr.Content = PortTotal
+    query.display = query.display === undefined ? '/table' : query.display
+    if (query.page === '/portTotal') {
+      arr.Content = query.display === '/table' ? PortTotalTable : PortTotalChart
       arr.SideContent = PortTotalBar
       arr.title = 'Portfolio : Total Product'
     }
     else {
-      arr.Content = PortSummary
+      arr.Content = query.display === '/table' ? PortSummary : PortTotalChart
       arr.SideContent = PortSummaryBar
       arr.title = 'Portfolio : Summary Page'
     }
@@ -53,13 +55,14 @@ class Portfolio extends Component {
   }
 
   render() {
-    const Portfolio = this.changePage(this.props.url.query.page)
+    const Portfolio = this.changePage(this.props.url.query)
     return(
       <Wrapper 
       Content={this.props.loading === false? Portfolio.Content : Spinner} 
       SideContent={Portfolio.SideContent}
       title={Portfolio.title}
       pathname={this.props.url.pathname}
+      query={this.props.url.query}
     />
     )
   }

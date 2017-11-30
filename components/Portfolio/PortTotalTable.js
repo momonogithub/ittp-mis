@@ -77,7 +77,7 @@ export const combineData = (dataObj, year, month) => {
   return result
 }
 
-class PortTotal extends Component {
+class PortTotalTable extends Component {
   constructor(props) {
     super(props)
   }
@@ -114,7 +114,7 @@ class PortTotal extends Component {
         )
         count += 1
       }
-      result.push(<tr key={`PortTotalRow ${[row]}`}>{this.createCol(`${data[row]}`, data[row])}</tr>)
+      result.push(<tr key={`PortTotalTableRow ${[row]}`}>{this.createCol(`${data[row]}`, data[row])}</tr>)
       row += 1
     }
     return result
@@ -122,23 +122,25 @@ class PortTotal extends Component {
 
   render() {
     return (
-      <table>
-        <Head><link href='/static/style.css' rel='stylesheet'/></Head>
-        <tbody>
-          <tr className='spanRow'>
-            <td className='headTable' colSpan='14'>
-              <label>
-                Portfolio : Total Product as {fullMonth[this.props.month - 1]} {this.props.year}
-              </label>
-            </td>
-          </tr>
-          <tr>
-            <th></th>
-            {createColHead(monthToMonth(this.props.year, this.props.month))}
-          </tr>
-          {this.createRow(combineData(this.props.portTotal, this.props.year, this.props.month))}
-        </tbody>
-      </table>
+      <div className='contentWrapper'>
+        <table>
+          <Head><link href='/static/style.css' rel='stylesheet'/></Head>
+          <tbody>
+            <tr className='spanRow'>
+              <td className='headTable' colSpan='14'>
+                <label>
+                  Portfolio : Total Product as {fullMonth[this.props.month - 1]} {this.props.year}
+                </label>
+              </td>
+            </tr>
+            <tr>
+              <th></th>
+              {createColHead(monthToMonth(this.props.year, this.props.month))}
+            </tr>
+            {this.createRow(combineData(this.props.portTotal, this.props.year, this.props.month))}
+          </tbody>
+        </table>
+      </div>
     )
   }
 } 
@@ -149,4 +151,4 @@ const mapStateToProps = (state) => ({
   portTotal: state.portfolio.portTotal
 })
 
-export default connect(mapStateToProps, null)(PortTotal)
+export default connect(mapStateToProps, null)(PortTotalTable)

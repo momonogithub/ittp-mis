@@ -12,12 +12,12 @@ class Sidebar extends Component {
     return(
       <div className='sidebar'>
         <Head><link href='/static/style.css' rel='stylesheet'/></Head>
-        <Link as='/portfolio' href="/portfolio?page=summary">
+        <Link as='/portfolio/portSummary/table' href='/portfolio'>
           <div className={path ==='/portfolio'? 'sideItem is-active': 'sideItem' }>
             Portfolio
           </div>
         </Link>
-        <Link href="/channel">
+        <Link as='/channel/table' href="/channel">
           <div className={path ==='/channel'? 'sideItem is-active': 'sideItem' }>
             Channel
           </div>

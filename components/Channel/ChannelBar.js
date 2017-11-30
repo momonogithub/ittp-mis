@@ -1,7 +1,8 @@
 import { Component } from 'react'
 import { connect } from 'react-redux'
-import { combineData } from './ChannelContent'
+import { combineData } from './ChannelTable'
 import { CSVLink } from 'react-csv'
+import Display from '../Display'
 import { monthToMonth } from '../../utilize/utils'
 import Head from 'next/head'
 import DateBar from '../DateBar'
@@ -22,11 +23,12 @@ class ChannelBar extends Component {
   render() {
     const monthArr = monthToMonth(this.props.year,this.props.month)
     return (
-      <div>
+      <div className='sideBarContent'>
         <Head><link href='/static/style.css' rel='stylesheet'/></Head>
         <div className='barContentList'>
           <div className='barContent'>
             <DateBar year={true} month={true}/>
+            <Display pathname={this.props.pathname} page='' display={this.props.query.display}/>
           </div>
           <div className='barContent'>
             <CSVLink
@@ -41,7 +43,8 @@ class ChannelBar extends Component {
           </div>
         </div>
         <div className='barContentList'>
-          <div className='barContent'>
+          <div className='barContent' 
+            style={ this.props.query.display === '/table' ? null : { display: 'none' }}>
             <WayCodeCheckBox/>
           </div>
         </div>

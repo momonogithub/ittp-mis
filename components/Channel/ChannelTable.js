@@ -123,23 +123,25 @@ class ChannelContent extends Component {
   render() {
     const monthArr = monthToMonth(this.props.year,this.props.month)
     return(
-      <table>
-        <Head><link href='/static/style.css' rel='stylesheet'/></Head>
-        <tbody>
-          <tr className='spanRow'>
-            <td className='headTable' colSpan='14'>
-              <label>
-                Acquistion as {fullMonth[this.props.month - 1]} {this.props.year}
-              </label>
-            </td>
-          </tr>
-          <tr>
-            <th></th>
-            {createColHead(monthArr)}
-          </tr>
-        </tbody>
-        {this.createRow(combineData(this.props.channel, this.props.wayCodes, monthArr))} 
-      </table>
+      <div className='contentWrapper'>
+        <table>
+          <Head><link href='/static/style.css' rel='stylesheet'/></Head>
+          <tbody>
+            <tr className='spanRow'>
+              <td className='headTable' colSpan='14'>
+                <label>
+                  Acquistion as {fullMonth[this.props.month - 1]} {this.props.year}
+                </label>
+              </td>
+            </tr>
+            <tr>
+              <th></th>
+              {createColHead(monthArr)}
+            </tr>
+          </tbody>
+          {this.createRow(combineData(this.props.channel, this.props.wayCodes, monthArr))} 
+        </table>
+      </div>
     )
   }
 }

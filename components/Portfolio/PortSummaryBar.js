@@ -1,5 +1,6 @@
 import { Component } from 'react'
 import DateBar from '../DateBar'
+import Display from '../Display'
 import Head from 'next/head'
 import ProductCheckbox from '../ProductCheckbox'
 import PortType from './PortType'
@@ -30,12 +31,13 @@ class PortSummaryBar extends Component {
   render() {
     const products = this.getProductList(this.props.products)
     return (
-      <div>
+      <div className='sideBarContent'>
         <Head><link href='/static/style.css' rel='stylesheet'/></Head>
         <div className='barContentList'>
           <div className='barContent'>
             <DateBar year={true} month={true}/>
-            <PortType page='summary'/>
+            <PortType page='/portSummary' display={this.props.query.display}/>
+            <Display pathname={this.props.pathname} page='/portSummary' display={this.props.query.display}/>
           </div>
           <div className='barContent'>
             <CSVLink

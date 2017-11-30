@@ -119,23 +119,25 @@ class PortSummary extends Component {
   render() {
     const products = this.getProductList(this.props.product)
     return (
-      <table>
-        <Head><link href='/static/style.css' rel='stylesheet'/></Head>
-        <tbody>
-          <tr className='spanRow'>
-            <td className='headTable' colSpan={`${products.length+1}`}>
-              <label>
-                Portfolio : Summary Page as {fullMonth[this.props.month - 1]} {this.props.year}
-              </label>
-            </td>
-          </tr>
-          <tr>
-            <th></th>
-            {createColHead(products)}
-          </tr>
-          {this.createRow(combineData(this.props.portSummary, products))}
-        </tbody>
-      </table>
+      <div className='contentWrapper'>
+        <table>
+          <Head><link href='/static/style.css' rel='stylesheet'/></Head>
+          <tbody>
+            <tr className='spanRow'>
+              <td className='headTable' colSpan={`${products.length+1}`}>
+                <label>
+                  Portfolio : Summary Page as {fullMonth[this.props.month - 1]} {this.props.year}
+                </label>
+              </td>
+            </tr>
+            <tr>
+              <th></th>
+              {createColHead(products)}
+            </tr>
+            {this.createRow(combineData(this.props.portSummary, products))}
+          </tbody>
+        </table>
+      </div>
     )
   }
 }

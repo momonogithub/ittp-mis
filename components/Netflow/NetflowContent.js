@@ -68,19 +68,21 @@ class NetflowContent extends Component {
   
   render() {
     return (
-      <table>
-        <Head><link href='/static/style.css' rel='stylesheet'/></Head>
-        <tbody>
-          <tr className='spanRow'>
-            <td className='headTable' colSpan={`${columnHead.length}`}>
-              <label>
-                Risk: Netflow as {fullMonth[this.props.month - 1]} {this.props.year}
-              </label>
-            </td>
-          </tr>
-          {this.createRow(combineData(this.props.data, this.props.year, this.props.month))}
-        </tbody>
-      </table>
+      <div className='contentWrapper'>
+        <table>
+          <Head><link href='/static/style.css' rel='stylesheet'/></Head>
+          <tbody>
+            <tr className='spanRow'>
+              <td className='headTable' colSpan={`${columnHead.length}`}>
+                <label>
+                  Risk: Netflow as {fullMonth[this.props.month - 1]} {this.props.year}
+                </label>
+              </td>
+            </tr>
+            {this.createRow(combineData(this.props.data, this.props.year, this.props.month))}
+          </tbody>
+        </table>
+      </div>
     )
   }
 }

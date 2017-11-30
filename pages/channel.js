@@ -7,7 +7,8 @@ import { fetchChannel, fetchUpdateChannel } from '../reduxModules/channel'
 import { switchLoadingStatus } from '../reduxModules/loading'
 import { fetchWayCode, switchWayCodeStatus } from '../reduxModules/wayCode'
 import withRedux from 'next-redux-wrapper'
-import ChannelContent from '../components/Channel/ChannelContent'
+import ChannelChart from '../components/Channel/ChannelChart'
+import ChannelTable from '../components/Channel/ChannelTable'
 import ChannelBar from '../components/Channel/ChannelBar'
 import Spinner from '../components/Spinner'
 import { isEqual } from 'lodash'
@@ -16,6 +17,15 @@ import requireAuth from '../hoc/requireAuth'
 class Channel extends Component {
   constructor(props) {
     super(props)
+  }
+
+  changePage = query => {
+    query.display = query.display === undefined ? '/table' : query.display
+    if(query.display === '/table') {
+      return ChannelTable
+    } else {
+      return ChannelChart
+    }
   }
 
   componentDidMount() {
@@ -30,12 +40,14 @@ class Channel extends Component {
   }
   
   render() {
+    const content = this.changePage(this.props.url.query)
     return(
       <Wrapper 
-        Content={this.props.loading === false? ChannelContent : Spinner} 
+        Content={this.props.loading === false? content : Spinner} 
         SideContent={ChannelBar} 
         title='Channel'
         pathname={this.props.url.pathname}
+        query={this.props.url.query}
       />
     )
   }

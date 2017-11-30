@@ -7,10 +7,9 @@ class PortType extends Component {
     super(props)
   }
 
-  changePage = (event) => Router.push({
-    pathname: '/portfolio',
-    query: { page: `${event.target.value}` }
-  })
+  changePage = (event) => Router.push(
+    `/portfolio?page=${event.target.value}&display=${this.props.display}`,
+    `/portfolio${event.target.value}${this.props.display}`)
   
   render() {
     return (
@@ -18,8 +17,8 @@ class PortType extends Component {
         <label>Type</label>
         <div className='infield'>
           <select defaultValue={this.props.page} onChange={this.changePage}>
-            <option value='summary'>Summary Page</option>
-            <option value='total'>Total Product</option>
+            <option value='/portSummary'>Summary Page</option>
+            <option value='/portTotal'>Total Product</option>
           </select>
         </div>
       </div>

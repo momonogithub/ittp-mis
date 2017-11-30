@@ -1,9 +1,10 @@
 import { Component } from 'react'
 import DateBar from '../DateBar'
+import Display from '../Display'
 import Head from 'next/head'
 import PortType from './PortType'
 import { CSVLink } from 'react-csv'
-import { combineData } from './PortTotal'
+import { combineData } from './PortTotalTable'
 import { connect } from 'react-redux'
 import { fetchUpdatePortTotal } from '../../reduxModules/portfolio'
 import { switchLoadingStatus } from '../../reduxModules/loading'
@@ -20,12 +21,13 @@ class PortTotalBar extends Component {
 
   render() {
     return (
-      <div>
+      <div className='sideBarContent'>
         <Head><link href='/static/style.css' rel='stylesheet'/></Head>
         <div className='barContentList'>
           <div className='barContent'>
             <DateBar year={true} month={true}/>
-            <PortType page='total'/>
+            <PortType page='/portTotal' display={this.props.query.display}/>
+            <Display pathname={this.props.pathname} page='/portTotal' display={this.props.query.display}/>
           </div>
           <div className='barContent'>
             <CSVLink

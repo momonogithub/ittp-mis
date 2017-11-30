@@ -14,15 +14,16 @@ app.prepare()
       app.render(req, res, actualPage)
     })
 
-    server.get('/portfolio/:page', (req, res) => {
-      const actualPage = '/porfolio'
-      const queryParams = { page: req.params.id } 
+    server.get('/portfolio/:page/:display', async (req, res) => {
+      const actualPage = '/portfolio'
+      const queryParams = { page: req.params.page, display: req.params.display }
       app.render(req, res, actualPage, queryParams)
     })
 
-    server.get('/channel', (req, res) => {
+    server.get('/channel/:display', (req, res) => {
       const actualPage = '/channel'
-      app.render(req, res, actualPage)
+      const queryParams = { display: req.params.display }
+      app.render(req, res, actualPage, queryParams)
     })
 
     server.get('/demographic', (req, res) => {
