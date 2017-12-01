@@ -6,7 +6,8 @@ import withRedux from 'next-redux-wrapper'
 import { setMonth, setYear } from '../reduxModules/date'
 import { switchLoadingStatus } from '../reduxModules/loading'
 import { fetchNetflow, fetchUpdateNetflow } from '../reduxModules/netflow'
-import NetflowContent from '../components/Netflow/NetflowContent'
+import NetflowChart from '../components/Netflow/NetflowChart'
+import NetflowTable from '../components/Netflow/NetflowTable'
 import NetflowBar from '../components/Netflow/NetflowBar'
 import Spinner from '../components/Spinner'
 import { isEqual } from 'lodash'
@@ -15,6 +16,15 @@ import requireAuth from '../hoc/requireAuth'
 class Netflow extends Component {
   constructor(props) {
     super(props)
+  }
+
+  changePage = query => {
+    query.display = query.display === undefined ? '/table' : query.display
+    if(query.display === '/table') {
+      return NetflowTable
+    } else {
+      return NetflowChart
+    }
   }
 
   componentDidMount() {
@@ -28,12 +38,14 @@ class Netflow extends Component {
   }
 
   render() {
+    const content = this.changePage(this.props.url.query)
     return (
       <Wrapper 
-        Content={this.props.loading === false ? NetflowContent : Spinner} 
+        Content={this.props.loading === false ? content : Spinner} 
         SideContent={NetflowBar} 
         title='Risk : Netflow'
         pathname={this.props.url.pathname}
+        query={this.props.url.query}
       />
     )
   }

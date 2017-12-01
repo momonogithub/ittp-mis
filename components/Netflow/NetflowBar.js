@@ -1,9 +1,10 @@
 import { Component } from 'react'
 import Head from 'next/head'
-import DateBar from '../DateBar'
 import { CSVLink } from 'react-csv'
-import { combineData } from './NetflowContent'
+import { combineData } from './NetflowTable'
 import { connect } from 'react-redux'
+import DateBar from '../DateBar'
+import Display from '../Display'
 import { fetchUpdateNetflow } from '../../reduxModules/netflow'
 import { switchLoadingStatus } from '../../reduxModules/loading'
 
@@ -24,6 +25,7 @@ class NetflowBar extends Component {
         <div className="barContentList">
           <div className="barContent">
             <DateBar year={true} month={true}/>
+            <Display pathname={this.props.pathname} page='' display={this.props.query.display}/>
           </div>
           <div className="barContent">
             <CSVLink

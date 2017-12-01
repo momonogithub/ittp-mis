@@ -27,7 +27,7 @@ class Sidebar extends Component {
             Demographic
           </div>
         </Link>
-        <Link href="/netflow">
+        <Link as='/netflow/table' href="/netflow">
           <div className={path ==='/netflow'? 'sideItem is-active': 'sideItem' }>
             Netflow
           </div>

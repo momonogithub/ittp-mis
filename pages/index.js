@@ -43,7 +43,7 @@ class Index extends Component {
   render() {
     if(this.props.accessToken !== undefined) {
       Router.push(
-        '/portfolio?page=portSummary&display=table',
+        '/portfolio?page=/portSummary&display=/table',
         '/portfolio/portSummary/table')
     }
     return(

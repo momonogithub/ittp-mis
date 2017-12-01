@@ -16,13 +16,13 @@ app.prepare()
 
     server.get('/portfolio/:page/:display', async (req, res) => {
       const actualPage = '/portfolio'
-      const queryParams = { page: req.params.page, display: req.params.display }
+      const queryParams = { page: req.params.page, display: `/${req.params.display}` }
       app.render(req, res, actualPage, queryParams)
     })
 
     server.get('/channel/:display', (req, res) => {
       const actualPage = '/channel'
-      const queryParams = { display: req.params.display }
+      const queryParams = { display: `/${req.params.display}` }
       app.render(req, res, actualPage, queryParams)
     })
 
@@ -31,9 +31,10 @@ app.prepare()
       app.render(req, res, actualPage)
     })
 
-    server.get('/netflow', (req, res) => {
+    server.get('/netflow/:display', (req, res) => {
       const actualPage = '/netflow'
-      app.render(req, res, actualPage)
+      const queryParams = { display: `/${req.params.display}` }
+      app.render(req, res, actualPage, queryParams)
     })
     
     server.get('*', (req, res) => {
