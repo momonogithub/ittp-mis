@@ -3,7 +3,7 @@ import { Component } from 'react'
 import { monthToMonth, createColHead, fullMonth, commaNumber } from '../../utilize/utils'
 import { connect } from 'react-redux'
 
-const rowHead = [
+export const rowHead = [
   'Total accounts',
   'Total customer',
   'Customer with 2 accounts',

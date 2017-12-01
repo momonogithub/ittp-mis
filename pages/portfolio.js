@@ -40,7 +40,6 @@ class Portfolio extends Component {
 
   changePage = (query) => {
     const arr = {}
-    console.log(query.display)
     query.display = query.display === undefined ? '/table' : query.display
     if (query.page === '/portTotal') {
       arr.Content = query.display === '/table' ? PortTotalTable : PortTotalChart

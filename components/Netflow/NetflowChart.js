@@ -1,6 +1,6 @@
 import Head from 'next/head'
 import { Component } from 'react'
-import { monthToMonth, fullMonth, fixedTwoDecimal } from '../../utilize/utils'
+import { monthToMonth, fixedTwoDecimal } from '../../utilize/utils'
 import { connect } from 'react-redux'
 import { AreaChart, Area, XAxis, YAxis, CartesianGrid, Tooltip } from 'recharts'
 
