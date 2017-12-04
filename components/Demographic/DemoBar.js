@@ -2,7 +2,8 @@ import { Component } from 'react'
 import DateBar from '../DateBar'
 import Head from 'next/head'
 import DemoCheckbox from './DemoCheckbox'
-import { combineData } from './DemoContent'
+import Display from '../Display'
+import { combineData } from './DemoTable'
 import { CSVLink } from 'react-csv'
 import { connect } from 'react-redux'
 import { fetchUpdateDemographic } from '../../reduxModules/demographic'
@@ -25,6 +26,7 @@ class DemographicBar extends Component {
         <div className='barContentList'>
           <div className='barContent'>
             <DateBar year={true} month={true}/>
+            <Display pathname={this.props.pathname} page='' display={this.props.query.display}/>
           </div>
           <div className='barContent'>
             <CSVLink
@@ -39,7 +41,12 @@ class DemographicBar extends Component {
           </div>
         </div>
         <div className='barContentList'>
+          <div 
+            className={ this.props.query.display === '/table' ? 
+              'barContent' : 'hidden'}
+          >
           <DemoCheckbox/>
+          </div>
         </div>
       </div>
     )

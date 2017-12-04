@@ -3,7 +3,7 @@ import Head from 'next/head'
 import { createColHead, portCreateRow, fullMonth, commaNumber } from '../../utilize/utils'
 import { connect } from 'react-redux'
 
-const rowHead = [
+export const rowHead = [
   'Total port since open',
   'Active account',
   'Average loan size',

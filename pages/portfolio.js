@@ -12,7 +12,8 @@ import { switchLoadingStatus } from '../reduxModules/loading'
 import { fetchProductList, switchProductStatus } from '../reduxModules/product'
 import { bindActionCreators } from 'redux'
 import withRedux from 'next-redux-wrapper'
-import PortSummary from '../components/Portfolio/PortSummary'
+import PortSummaryChart from '../components/Portfolio/PortSummaryChart'
+import PortSummaryTable from '../components/Portfolio/PortSummaryTable'
 import PortSummaryBar from '../components/Portfolio/PortSummaryBar'
 import PortTotalChart from '../components/Portfolio/PortTotalChart'
 import PortTotalTable from '../components/Portfolio/PortTotalTable'
@@ -47,7 +48,7 @@ class Portfolio extends Component {
       arr.title = 'Portfolio : Total Product'
     }
     else {
-      arr.Content = query.display === '/table' ? PortSummary : PortTotalChart
+      arr.Content = query.display === '/table' ? PortSummaryTable : PortSummaryChart
       arr.SideContent = PortSummaryBar
       arr.title = 'Portfolio : Summary Page'
     }

@@ -4,7 +4,7 @@ import Display from '../Display'
 import Head from 'next/head'
 import ProductCheckbox from '../ProductCheckbox'
 import PortType from './PortType'
-import { combineData } from './PortSummary'
+import { combineData } from './PortSummaryTable'
 import { connect } from 'react-redux'
 import { CSVLink } from 'react-csv'
 import { fetchUpdatePortSummary } from '../../reduxModules/portfolio'
@@ -52,7 +52,10 @@ class PortSummaryBar extends Component {
           </div>
         </div>
         <div className='barContentList'>
-          <div className='barContent'>
+          <div 
+            className={ this.props.query.display === '/table' ? 
+              'barContent' : 'hidden'}
+          >
             <ProductCheckbox/>
           </div>
         </div>

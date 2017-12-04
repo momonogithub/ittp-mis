@@ -43,8 +43,10 @@ class ChannelBar extends Component {
           </div>
         </div>
         <div className='barContentList'>
-          <div className='barContent' 
-            style={ this.props.query.display === '/table' ? null : { display: 'none' }}>
+          <div 
+            className={ this.props.query.display === '/table' ? 
+              'barContent' : 'hidden'}
+          >
             <WayCodeCheckBox/>
           </div>
         </div>

@@ -26,9 +26,10 @@ app.prepare()
       app.render(req, res, actualPage, queryParams)
     })
 
-    server.get('/demographic', (req, res) => {
+    server.get('/demographic/:display', (req, res) => {
       const actualPage = '/demographic'
-      app.render(req, res, actualPage)
+      const queryParams = { display: `/${req.params.display}` }
+      app.render(req, res, actualPage, queryParams)
     })
 
     server.get('/netflow/:display', (req, res) => {

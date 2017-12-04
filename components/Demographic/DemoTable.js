@@ -3,7 +3,7 @@ import Head from 'next/head'
 import { monthToMonth, createColHead, fullMonth, commaNumber } from '../../utilize/utils'
 import { connect } from 'react-redux'
 
-const rowHead = [
+export const rowHead = [
   'New account',
   'Loan size',
   'Average int rate',
@@ -51,7 +51,7 @@ const checkValue = value => {
   }
 }
 
-class DemoContent extends Component {
+class DemoTable extends Component {
   constructor(props) {
     super(props)
   }
@@ -130,4 +130,4 @@ const mapStateToProps = (state) => ({
   demoList: state.demographic.demoList
 })
 
-export default connect(mapStateToProps, null)(DemoContent)
+export default connect(mapStateToProps, null)(DemoTable)

@@ -22,7 +22,7 @@ class Sidebar extends Component {
             Channel
           </div>
         </Link>
-        <Link href="/demographic">
+        <Link as='/demographic/table' href="/demographic">
           <div className={path ==='/demographic'? 'sideItem is-active': 'sideItem' }>
             Demographic
           </div>

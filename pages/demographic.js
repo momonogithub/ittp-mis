@@ -6,7 +6,8 @@ import { setMonth, setYear } from '../reduxModules/date'
 import { fetchDemographic, fetchDemoList, switchDemoStatus } from '../reduxModules/demographic'
 import { switchLoadingStatus } from '../reduxModules/loading'
 import withRedux from 'next-redux-wrapper'
-import DemoContent from '../components/Demographic/DemoContent'
+import DemoChart from '../components/Demographic/DemoChart'
+import DemoTable from '../components/Demographic/DemoTable'
 import DemoBar from '../components/Demographic/DemoBar'
 import Spinner from '../components/Spinner'
 import { isEqual } from 'lodash'
@@ -17,6 +18,15 @@ class Demographic extends Component {
     super(props)
   }
 
+  changePage = query => {
+    query.display = query.display === undefined ? '/table' : query.display
+    if(query.display === '/table') {
+      return DemoTable
+    } else {
+      return DemoChart
+    }
+  }
+  
   componentDidMount() {
     this.props.fetchDemographic(this.props.date)
     this.props.fetchDemoList()
@@ -29,12 +39,14 @@ class Demographic extends Component {
   }
   
   render() {
+    const content = this.changePage(this.props.url.query)
     return (
       <Wrapper 
-        Content={this.props.loading === false? DemoContent: Spinner} 
+        Content={this.props.loading === false? content: Spinner} 
         SideContent={DemoBar} 
         title='Demographic : Total Account Profile'
         pathname={this.props.url.pathname}
+        query={this.props.url.query}
       />
     )
   }

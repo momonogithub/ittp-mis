@@ -3,7 +3,8 @@ import { Component } from 'react'
 import { monthToMonth } from '../../utilize/utils'
 import { connect } from 'react-redux'
 import { rowHead } from './PortTotalTable'
-import { AreaChart, Area, XAxis, YAxis, CartesianGrid, Tooltip } from 'recharts'
+import { fullMonth } from '../../utilize/utils'
+import SimpleAreaChart from '../Charts/SimpleAreaChart'
 
 class PortTotalChart extends Component {
   constructor(props) {
@@ -26,6 +27,7 @@ class PortTotalChart extends Component {
             name: month[count],
             [rowHead[this.state.display]] : portTotal[date][item] 
           })
+          break
         }
         checkChart += 1
       }
@@ -55,22 +57,18 @@ class PortTotalChart extends Component {
   render() {
     return (
       <div className='contentWrapper'>
-        <label>Display Chart</label>
-        <div className='infield'>
-          <select value={this.state.display} onChange={this.handleChange}>
-          {this.dropDownList()}
-          </select>
+        <div className='chartBar'>
+          <label>Display chart as {fullMonth[this.props.month - 1]} {this.props.year}</label>
+          <div className='infield'>
+            <select value={this.state.display} onChange={this.handleChange}>
+            {this.dropDownList()}
+            </select>
+          </div>
         </div>
-        <AreaChart width={900} height={460} 
+        <SimpleAreaChart 
           data={this.chartData(this.props.portTotal ,
             monthToMonth(this.props.year, this.props.month))}
-          margin={{top: 10, right: 30, left: 0, bottom: 0}}>
-          <XAxis dataKey="name"/>
-          <YAxis/>
-          <CartesianGrid strokeDasharray="3 3"/>
-          <Tooltip/>
-          <Area type='monotone' dataKey={rowHead[this.state.display]} stroke='#0a71ab' fill='#0a71ab' />
-        </AreaChart>
+          dataKey={rowHead[this.state.display]}/>
       </div>
     )
   }
