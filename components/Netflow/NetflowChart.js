@@ -4,6 +4,22 @@ import { monthToMonth, fixedTwoDecimal } from '../../utilize/utils'
 import { connect } from 'react-redux'
 import { AreaChart, Area, XAxis, YAxis, CartesianGrid, Tooltip } from 'recharts'
 
+const color = [
+  "#FF1100",
+  "#FFB100",
+  "#FFCD00",
+  "#D9EC00",
+  "#99CB00",
+  "#269300",
+  "#00EBD8",
+  "#00F7FF",
+  "#004EFF",
+  "#C66CF1",
+  "#EE82EE",
+  "#FD5BD2",
+  "#000000",
+]
+
 const getPercent = (value, total) => {
 	const ratio = total > 0 ? value / total : 0
   
@@ -54,6 +70,23 @@ class NetflowChart extends Component {
     return data
   }
 
+  getArea = () => {
+    const areas = []
+    for(let i = 1 ; i < 14 ; i += 1) {
+      areas.push(
+        <Area 
+          key={`Area b${i}`} 
+          type='monotone' 
+          dataKey={`b${i}`} 
+          stackId="1" 
+          stroke={color[i-1]} 
+          fill={color[i-1]} 
+        />
+      )
+    }
+    return areas
+  }
+
   render() {
     return (
       <div className='contentWrapper'>
@@ -66,18 +99,7 @@ class NetflowChart extends Component {
           <YAxis tickFormatter={toPercent}/>
           <CartesianGrid strokeDasharray="3 3"/>
           <Tooltip content={renderTooltipContent}/>
-          <Area type='monotone' dataKey='b1' stackId="1" stroke="#FF1100" fill="#FF1100" />
-          <Area type='monotone' dataKey='b2' stackId="1" stroke="#FFB100" fill="#FFB100" />
-          <Area type='monotone' dataKey='b3' stackId="1" stroke="#FFCD00" fill="#FFCD00" />
-          <Area type='monotone' dataKey='b4' stackId="1" stroke="#D9EC00" fill="#D9EC00" />
-          <Area type='monotone' dataKey='b5' stackId="1" stroke="#99CB00" fill="#99CB00" />
-          <Area type='monotone' dataKey='b6' stackId="1" stroke="#269300" fill="#269300" />
-          <Area type='monotone' dataKey='b7' stackId="1" stroke="#00EBD8" fill="#00EBD8" />
-          <Area type='monotone' dataKey='b8' stackId="1" stroke="#00F7FF" fill="#00F7FF" />
-          <Area type='monotone' dataKey='b9' stackId="1" stroke="#004EFF" fill="#004EFF" />
-          <Area type='monotone' dataKey='b10' stackId="1" stroke="#C66CF1" fill="#C66CF1" />
-          <Area type='monotone' dataKey='b11' stackId="1" stroke="#EE82EE" fill="#EE82EE" />
-          <Area type='monotone' dataKey='b12' stackId="1" stroke="#FD5BD2" fill="#FD5BD2" />
+          {this.getArea()}
         </AreaChart>
       </div>
     )
