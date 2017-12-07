@@ -133,6 +133,8 @@ label {
   background-color: #ffffff;
   margin-bottom: 10px;
   padding-left: 10px;
+  max-height: 300px;
+  overflow-y: scroll;
 }
 .barContent {
   padding-top: 10px;

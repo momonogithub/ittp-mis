@@ -87,15 +87,14 @@ class ChannelContent extends Component {
   createRow = (data) => {
     const result = []
     for(let row = 1 ; row < data.length ; row += 1) {
-      const name = this.props.wayCodes[data[row][0]] === undefined?
-      '' : this.props.wayCodes[data[row][0]].name
-      const status = name === '' ? true : this.props.wayCodes[data[row][0]].status
+      const status = this.props.wayCodes[data[row][0]] === undefined? 
+        true : this.props.wayCodes[data[row][0]].status
       if(status) {
         result.push(
           <tbody key={`${data[row]}body`}>
             <tr key={`${data[row][0]}row`} className='spanRow'>
               <td key={`${data[row][0]}span`} colSpan='14'>
-                <label key={`${data[row][0]}Label`}>{`${data[row][0]} ${name}`}</label>
+                <label key={`${data[row][0]}Label`}>{`${data[row][0]}`}</label>
               </td>
             </tr>
             <tr key={`ChannelRow ${row}`}>{this.createCol(`${data[row][0]}`, data[row])}</tr>

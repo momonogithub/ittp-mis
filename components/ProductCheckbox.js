@@ -10,19 +10,21 @@ class ProductCheckbox extends Component {
 
   buildCheckbox = products => {
     const result = []
+    let count = 0
     for (let item in products) {
       result.push(
-        <div key={`${products[item].name}Div`}>
+        <div key={`Product${count} CheckBox`}>
           <input 
-            type="checkbox" key={`${products[item].name}Box`} 
+            type="checkbox" key={`${products[item].name} input`} 
             name={products[item].name} 
             value={item}
             onChange={this.props.switchProductStatus}
             checked={products[item].status}
           />
-          <label key={`${products[item].name}Label`}>{products[item].name}</label>
+          <label key={`${products[item].name} Label`}>{products[item].name}</label>
         </div>
       )
+      count += 1
     }
     return result
   }
