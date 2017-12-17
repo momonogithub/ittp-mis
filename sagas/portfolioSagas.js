@@ -1,5 +1,5 @@
 import { put, call, takeLatest} from 'redux-saga/effects'
-import { API_SERVER, getJSON} from '../utilize/api'
+import { API_SERVER, getJSON, patchJSON} from '../utilize/api'
 import { 
   FETCH_PORTTOTAL,
   FETCH_PORTTOTAL_SUCCESS,
@@ -16,7 +16,7 @@ export function* fetchPortSummary(action) {
   try {
     const month = action.payload.month
     const year = action.payload.year
-    const json = yield call(getJSON, `${API_SERVER}/portSummary/getPortSummary/${month}/${year}`)
+    const json = yield call(getJSON, `${API_SERVER}/portSummary/${month}/${year}`)
     yield put({
       type: FETCH_PORTSUMMARY_SUCCESS,
       payload: json
@@ -32,7 +32,7 @@ export function* fetchPortTotal(action) {
   try {
     const month = action.payload.month
     const year = action.payload.year
-    const json = yield call(getJSON, `${API_SERVER}/portTotal/getPortTotal/${month}/${year}`)
+    const json = yield call(getJSON, `${API_SERVER}/portTotal/${month}/${year}`)
     yield put({
       type: FETCH_PORTTOTAL_SUCCESS,
       payload: json
@@ -46,13 +46,7 @@ export function* fetchPortTotal(action) {
 
 export function* fetchUpdatePortSummary(action) {
   try {
-    const month = action.payload.month
-    const year = action.payload.year
-    const json = yield call(getJSON, `${API_SERVER}/portSummary/updatePortSummary/${month}/${year}`)
-    yield put({
-      type: FETCH_PORTSUMMARY_SUCCESS,
-      payload: json
-    })
+    const json = yield call(patchJSON, `${API_SERVER}/portSummary`, action.payload)
     yield put({
       type: FETCH_PORTSUMMARY_SUCCESS,
       payload: json
@@ -62,14 +56,13 @@ export function* fetchUpdatePortSummary(action) {
     yield put({
       type: FETCH_PORTSUMMARY_FAILED,
     })
+    yield put({type: SWITCH_LOADING_STATUS})
   }
 }
 
 export function* fetchUpdatePortTotal(action) {
   try {
-    const month = action.payload.month
-    const year = action.payload.year
-    const json = yield call(getJSON, `${API_SERVER}/portTotal/updatePortTotal/${month}/${year}`)
+    const json = yield call(patchJSON, `${API_SERVER}/portTotal/`, action.payload)
     yield put({
       type: FETCH_PORTTOTAL_SUCCESS,
       payload: json
@@ -79,6 +72,7 @@ export function* fetchUpdatePortTotal(action) {
     yield put({
       type: FETCH_PORTTOTAL_FAILED,
     })
+    yield put({type: SWITCH_LOADING_STATUS})
   }
 }
 

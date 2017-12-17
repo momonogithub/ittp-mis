@@ -4,14 +4,14 @@ import {
   FETCH_NETFLOW_SUCCESS,
   FETCH_NETFLOW_FAILED,
   FETCH_UPDATE_NETFLOW } from '../reduxModules/netflow'
-import { API_SERVER, getJSON} from '../utilize/api'
+import { API_SERVER, getJSON, patchJSON} from '../utilize/api'
 import { SWITCH_LOADING_STATUS } from '../reduxModules/loading'
  
 export function* fetchNetflow(action) {
   try {
     const month = action.payload.month
     const year = action.payload.year
-    const json = yield call(getJSON, `${API_SERVER}/netflow/getNetflow/${month}/${year}`)
+    const json = yield call(getJSON, `${API_SERVER}/netflow/${month}/${year}`)
     yield put({
       type: FETCH_NETFLOW_SUCCESS,
       payload: json
@@ -25,9 +25,7 @@ export function* fetchNetflow(action) {
 
 export function* fetchUpdateNetflow(action) {
   try {
-    const month = action.payload.month
-    const year = action.payload.year
-    const json = yield call(getJSON, `${API_SERVER}/netflow/updateNetflow/${month}/${year}`)
+    const json = yield call(patchJSON, `${API_SERVER}/netflow`, action.payload)
     yield put({
       type: FETCH_NETFLOW_SUCCESS,
       payload: json
@@ -37,6 +35,7 @@ export function* fetchUpdateNetflow(action) {
     yield put({
       type: FETCH_NETFLOW_FAILED,
     })
+    yield put({type: SWITCH_LOADING_STATUS})
   }
 }
 

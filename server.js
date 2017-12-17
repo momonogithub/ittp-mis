@@ -16,7 +16,7 @@ app.prepare()
 
     server.get('/portfolio/:page/:display', async (req, res) => {
       const actualPage = '/portfolio'
-      const queryParams = { page: req.params.page, display: `/${req.params.display}` }
+      const queryParams = { page: `/${req.params.page}`, display: `/${req.params.display}` }
       app.render(req, res, actualPage, queryParams)
     })
 

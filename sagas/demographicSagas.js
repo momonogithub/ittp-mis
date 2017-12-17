@@ -7,14 +7,14 @@ import {
   FETCH_DEMOLIST,
   FETCH_DEMOLIST_SUCCESS,
   FETCH_DEMOLIST_FAILED } from '../reduxModules/demographic'
-import { API_SERVER, getJSON} from '../utilize/api'
+import { API_SERVER, getJSON, patchJSON} from '../utilize/api'
 import { SWITCH_LOADING_STATUS } from '../reduxModules/loading'
  
 export function* fetchDemographic(action) {
   try {
     const month = action.payload.month
     const year = action.payload.year
-    const json = yield call(getJSON, `${API_SERVER}/demographic/getDemographic/${month}/${year}`)
+    const json = yield call(getJSON, `${API_SERVER}/demographic/${month}/${year}`)
     yield put({
       type: FETCH_DEMOGRAPHIC_SUCCESS,
       payload: json
@@ -28,9 +28,7 @@ export function* fetchDemographic(action) {
 
 export function* fetchUpdateDemographic(action) {
   try {
-    const month = action.payload.month
-    const year = action.payload.year
-    const json = yield call(getJSON, `${API_SERVER}/demographic/updateDemographic/${month}/${year}`)
+    const json = yield call(patchJSON, `${API_SERVER}/demographic`, action.payload)
     yield put({
       type: FETCH_DEMOGRAPHIC_SUCCESS,
       payload: json
@@ -40,6 +38,7 @@ export function* fetchUpdateDemographic(action) {
     yield put({
       type: FETCH_DEMOGRAPHIC_FAILED,
     })
+    yield put({type: SWITCH_LOADING_STATUS})
   }
 }
 

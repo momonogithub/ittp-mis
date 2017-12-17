@@ -41,3 +41,20 @@ export const postJSON = (url, jsonBody) => fetch(url, {
     }
     return json
   })
+
+export const patchJSON = (url, jsonBody) => fetch(url, {
+  method: 'PATCH',
+  headers: {
+    Accept: 'application/json',
+    'Content-type': 'application/json',
+    Authorization: getAccessToken(),
+  },
+  body: JSON.stringify(jsonBody),
+})
+  .then(response => response.json())
+  .then((json) => {
+    if (json.error) {
+      throw Error(json.error.message)
+    }
+    return json
+  })

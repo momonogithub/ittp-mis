@@ -4,14 +4,14 @@ import {
   FETCH_CHANNEL_SUCCESS,
   FETCH_CHANNEL_FAILED,
   FETCH_UPDATE_CHANNEL } from '../reduxModules/channel'
-import { API_SERVER, getJSON} from '../utilize/api'
+import { API_SERVER, getJSON, patchJSON} from '../utilize/api'
 import { SWITCH_LOADING_STATUS } from '../reduxModules/loading'
  
 export function* fetchChannel(action) {
   try {
     const month = action.payload.month
     const year = action.payload.year
-    const json = yield call(getJSON, `${API_SERVER}/channel/getChannel/${month}/${year}`)
+    const json = yield call(getJSON, `${API_SERVER}/channel/${month}/${year}`)
     yield put({
       type: FETCH_CHANNEL_SUCCESS,
       payload: json
@@ -25,9 +25,7 @@ export function* fetchChannel(action) {
 
 export function* fetchUpdateChannel(action) {
   try {
-    const month = action.payload.month
-    const year = action.payload.year
-    const json = yield call(getJSON, `${API_SERVER}/channel/updateChannel/${month}/${year}`)
+    const json = yield call(patchJSON, `${API_SERVER}/channel/`, action.payload)
     yield put({
       type: FETCH_CHANNEL_SUCCESS,
       payload: json
@@ -37,6 +35,7 @@ export function* fetchUpdateChannel(action) {
     yield put({
       type: FETCH_CHANNEL_FAILED,
     })
+    yield put({type: SWITCH_LOADING_STATUS})
   }
 }
 

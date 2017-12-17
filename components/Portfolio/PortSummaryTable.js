@@ -21,7 +21,7 @@ export const rowHead = [
   'NPL account (B7++)',
   'Delinquent rate (B1-B3)',
   'Delinquent rate (B1-B6)',
-  'NPL rate (B3++)',
+  'NPL rate (B7++)',
   'Recovey Rate',
 ]
 
