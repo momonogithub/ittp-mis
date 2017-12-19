@@ -4,7 +4,7 @@ import { monthToMonth, createColHead, fullMonth, commaNumber } from '../../utili
 import { connect } from 'react-redux'
 
 export const rowHead = [
-  'Total account',
+  'Total loan',
   'New account',
   'Loan size',
   'Average int rate',
