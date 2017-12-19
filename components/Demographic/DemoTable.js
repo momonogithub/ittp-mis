@@ -4,6 +4,7 @@ import { monthToMonth, createColHead, fullMonth, commaNumber } from '../../utili
 import { connect } from 'react-redux'
 
 export const rowHead = [
+  'Total account',
   'New account',
   'Loan size',
   'Average int rate',
@@ -26,6 +27,7 @@ export const combineData = (data) => {
       const subRow = []
       subRow.push(
         group,
+        data[demo][group].totalAccount,
         data[demo][group].newAccount,
         data[demo][group].loanSize,
         data[demo][group].averageInt,

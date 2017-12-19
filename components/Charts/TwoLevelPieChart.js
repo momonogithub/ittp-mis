@@ -71,7 +71,7 @@ class TwoLevelPieChart extends Component {
           data={this.props.data} 
           cx={400} 
           cy={250} 
-          innerRadius={150}
+          innerRadius={130}
           outerRadius={180} 
           fill="#0A71AB"
           onMouseEnter={this.onPieEnter}

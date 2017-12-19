@@ -9,72 +9,71 @@ import {
 import { values } from 'lodash'
 import { connect } from 'react-redux'
 
+const groupName = ['Branch', 'Sale', 'StaffCash', 'Partner', 'Online', 'Other']
+
+const checkGroup = code => {
+  if(code[0] === 'B' || code === 'HQ') {
+    return groupName[0]
+  } else if (code === 'MT' || code === 'Staffcash') {
+    return groupName[2]
+  } else if (code[0] === 'S') {
+    return groupName[1]
+  } else if (code[0] === 'P') {
+    return groupName[3]
+  } else if (code === 'WWW' || code[0] === 'T') {
+    return groupName[4]
+  } else {
+    return groupName[5]
+  }
+}
+
 export const combineData = (channel, wayCodes, date) => {
   const result = []
   const month = values(channel)
-  const branch = {}
-  const sale = {}
-  const branchArr = ['Branch']
-  const saleArr = ['Sale']
+  const group = {}
+  for(let i = 0 ; i < groupName.length ; i += 1) {
+    group[groupName[i]] = {
+      Application: 0,
+      Approved: 0,
+      display: [groupName[i]],
+      subGroup: {}
+    }
+  }
   let header =  ['']
   let percent
   result.push(header.concat(date))
   for(let count = month.length - 1 ; count >=0 ; count -=1) {
-    const countBranch = {
-      Application : 0,
-      Approved : 0
-    }
-    const countSale = {
-      Application : 0,
-      Approved : 0
-    }
     for(let code in wayCodes) {
       const subChannel = month[count][code]
       const value = subChannel === undefined? 
       'N/A' : `${subChannel.Approved} : ${subChannel.Application} ${subChannel.Percent}%`
-      if(code[0] === 'B' || code === 'HQ') {  // By Branch
-        if(branch[code] === undefined) {
-          branch[code] = [code]
-        }
-        const arr = branch[code]
-        arr.push(value)
-        branch[code] = arr
-        if(subChannel !== undefined) {
-          countBranch.Application += subChannel.Application
-          countBranch.Approved += subChannel.Approved
-        }
-      }else { // By Sale
-        if(sale[code] === undefined) {
-          sale[code] = [code]
-        }
-        const arr = sale[code]
-        arr.push(value)
-        sale[code] = arr
-        if(subChannel !== undefined) {
-          countSale.Application += subChannel.Application
-          countSale.Approved += subChannel.Approved
-        }
+      const index = checkGroup(code)
+      if(group[index]['subGroup'][code] === undefined) {
+        group[index]['subGroup'][code] = [code]
+      }
+      group[index]['subGroup'][code].push(value)
+      if(subChannel !== undefined) {
+        group[index]['Application'] += subChannel.Application
+        group[index]['Approved'] += subChannel.Approved
+      }
+      if(count === 11) {
+        console.log(group)
       }
     }
-    percent = countBranch.Application === 0 ? 
-      'N/A' : `${fixedTwoDecimal(countBranch.Approved  / countBranch.Application * 100)}%`
-    branchArr.push(
-      `${countBranch.Approved} : ${countBranch.Application} ${percent}`
-    )
-    percent = countSale.Application === 0 ? 
-    'N/A' : `${fixedTwoDecimal(countSale.Approved  / countSale.Application * 100)}%`
-    saleArr.push(
-      `${countSale.Approved} : ${countSale.Application} ${percent}`
-    )
+    for(let item in group) {
+      percent = group[item].Application === 0 ? 
+      'N/A' : `${fixedTwoDecimal(group[item].Approved  / group[item].Application * 100)}%`
+      group[item].display.push(`${group[item].Approved} : ${group[item].Application} ${percent}`)
+      // reset value for next iterative
+      group[item].Approved = 0
+      group[item].Application = 0
+    }
   }
-
-  result.push(branchArr)
-  for(let item in branch) {
-    result.push(branch[item])
-  }
-  result.push(saleArr)
-  for(let item in sale) {
-    result.push(sale[item])
+  for(let item in group) {
+    result.push(group[item].display)
+    for(let sub in group[item].subGroup) {
+      result.push(group[item].subGroup[sub])
+    }
   }
   return result
 }
@@ -89,10 +88,12 @@ class ChannelContent extends Component {
     for(let row = 1 ; row < data.length ; row += 1) {
       const status = this.props.wayCodes[data[row][0]] === undefined? 
         true : this.props.wayCodes[data[row][0]].status
+      const isSub = this.props.wayCodes[data[row][0]] === undefined?
+        false : true
       if(status) {
         result.push(
           <tbody key={`${data[row]}body`}>
-            <tr key={`${data[row][0]}row`} className='spanRow'>
+            <tr key={`${data[row][0]}row`} className={isSub === true? 'spanRow sub' : 'spanRow' }>
               <td key={`${data[row][0]}span`} colSpan='14'>
                 <label key={`${data[row][0]}Label`}>{`${data[row][0]}`}</label>
               </td>
