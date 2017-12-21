@@ -27,7 +27,7 @@ export const combineData = (data) => {
       const subRow = []
       subRow.push(
         group,
-        data[demo][group].totalAccount,
+        data[demo][group].totalLoan,
         data[demo][group].newAccount,
         data[demo][group].loanSize,
         data[demo][group].averageInt,
