@@ -45,12 +45,12 @@ class Portfolio extends Component {
     if (query.page === '/portTotal') {
       arr.Content = query.display === '/table' ? PortTotalTable : PortTotalChart
       arr.SideContent = PortTotalBar
-      arr.title = 'Portfolio : Total Product'
+      arr.title = 'Portfolio : Total product'
     }
     else {
       arr.Content = query.display === '/table' ? PortSummaryTable : PortSummaryChart
       arr.SideContent = PortSummaryBar
-      arr.title = 'Portfolio : Summary Page'
+      arr.title = 'Portfolio : Summary page'
     }
     return arr
   }

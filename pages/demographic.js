@@ -44,7 +44,7 @@ class Demographic extends Component {
       <Wrapper 
         Content={this.props.loading === false? content: Spinner} 
         SideContent={DemoBar} 
-        title='Demographic : Total Account Profile'
+        title='Demographic : Total account profile'
         pathname={this.props.url.pathname}
         query={this.props.url.query}
       />
